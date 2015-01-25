@@ -19,6 +19,10 @@ Deploying as a WAR file
 
 1. Generate the war file doctor-dashboard.war:
 
-        $ warble
+        rvm use jruby                  # use JRuby and its gems for packaging
+        bundle install --deployment    # prepare gems for deployment
+        warble                         # generate the war file
+        bundle install --no-deployment # allow gems to be modified
+        rvm use default                # use standard Ruby for development
 
 2. Deploy to app server: TBD
