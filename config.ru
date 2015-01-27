@@ -1,4 +1,17 @@
 # This file is used by Rack-based servers to start the application.
 
 require ::File.expand_path('../config/environment', __FILE__)
-run Rails.application
+
+prefix = '/doctor-dashboard'
+
+map prefix do
+  run Rails.application
+end
+
+map '/' do
+  run ->(env) {
+    response = Rack::Response.new
+    response.redirect(prefix)
+    response.finish
+  }
+end
