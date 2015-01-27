@@ -7,9 +7,6 @@
 # Ignore bundler config.
 /.bundle
 
-# Ignore vendored gems
-/vendor/bundle
-
 # Ignore the default SQLite database.
 /db/*.sqlite3
 /db/*.sqlite3-journal
@@ -19,4 +16,7 @@
 !/log/.keep
 /tmp
 
+# Ignore generated files
+/vendor/bundle
 doctor-dashboard.war
+/public/assets
