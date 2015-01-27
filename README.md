@@ -26,4 +26,15 @@ Deploying as a WAR file
         bundle install --no-deployment              # allow gems to be modified
         rvm use default                             # use standard Ruby for development
 
-2. Deploy to app server: TBD
+2. Deploy to a Tomcat app server:
+
+    * (once) Make the catalina startup script executable
+
+            chmod +x bin/catalina.sh
+
+    * Start the Tomcat app server
+
+            bin/catalina.sh start
+
+    * Copy or symlink the doctor-dashboard.war file into the `tomcat/webapps/` directory
+    * Visit http://localhost:8080/doctor-dashboard/
