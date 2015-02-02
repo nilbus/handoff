@@ -30,5 +30,9 @@ module DoctorDashboard
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
+    if File.exist? Rails.root.join 'web.xml'
+      config.assets.prefix = '/doctor-dashboard/assets'
+    end
+    config.action_controller.relative_url_root = '/doctor-dashboard'
   end
 end
