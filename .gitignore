@@ -20,3 +20,11 @@
 /vendor/bundle
 doctor-dashboard.war
 /public/assets
+
+# Ignore editor/OS files
+.idea
+.project
+.DS_Store
+*.swp
+*.swo
+*.iml
