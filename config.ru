@@ -2,7 +2,7 @@
 
 require ::File.expand_path('../config/environment', __FILE__)
 
-prefix = '/doctor-dashboard'
+prefix = '/handoff'
 
 map prefix do
   run Rails.application
