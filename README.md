@@ -17,7 +17,7 @@ Things you may want to cover:
 Deploying as a WAR file
 =======================
 
-1. Generate the war file doctor-dashboard.war:
+1. Generate the war file handoff.war:
 
         rvm use jruby                               # use JRuby and its gems for packaging
         bundle install --deployment                 # prepare gems for deployment
@@ -36,5 +36,5 @@ Deploying as a WAR file
 
             bin/catalina.sh start
 
-    * Copy or symlink the doctor-dashboard.war file into the `tomcat/webapps/` directory
-    * Visit http://localhost:8080/doctor-dashboard/
+    * Copy or symlink the handoff.war file into the `tomcat/webapps/` directory
+    * Visit http://localhost:8080/handoff/
