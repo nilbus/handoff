@@ -19,6 +19,10 @@ Deploying as a WAR file
 
 1. Generate the war file handoff.war:
 
+        bin/build-war
+
+    or
+
         rvm use jruby                               # use JRuby and its gems for packaging
         bundle install --deployment                 # prepare gems for deployment
         RAILS_ENV=production rake assets:precompile # compile assets (js, css)
