@@ -1,18 +1,52 @@
 Doctor-Dashboard
 ================
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Add notes, pictures, or have a conversation in the context of an Electronic
+Health Record.
 
-Things you may want to cover:
+Initial Setup
+=============
 
-* Installing RVM and the appropriate rubies (ruby and jruby)
+1. Install rvm, following the instructions on the front page of http://rvm.io.
+   If gpg is not a command on your system, ignore that step.
 
-* Using bundler to install dependencies
+1. Open a new terminal, so the rvm script loads.
 
-* Database initialization
+1. Install ruby:
 
-* ...
+        rvm install ruby
+
+1. Clone the git repository, if you haven't already:
+
+        git clone https://github.com/nilbus/handoff
+
+   Note that this https URL requires you to enter your github credentials each
+   time you authenticate. If you want to use passwordless SSH key based
+   authentication isntead, follow GitHub's instructions here:
+   https://help.github.com/articles/generating-ssh-keys/
+
+1. cd into the handoff git repository
+
+        cd handoff
+
+1. Install ruby gems
+
+        bundle install
+
+1. Initialize the database
+
+        bin/rake db:setup
+
+Running the application
+=======================
+
+1. `cd` into the project directory
+
+1. Start the rails server
+
+        bin/rails server
+
+1. Visit http://localhost:3000
 
 Deploying as a WAR file
 =======================
