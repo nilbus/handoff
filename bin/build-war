@@ -2,5 +2,5 @@
 set -o errexit
 rvm jruby do bundle install --deployment    # prepare gems for deployment
 RAILS_ENV=production rake assets:precompile # compile assets (js, css)
-rvm jruby do warble                         # generate the war file
+rvm jruby do bundle exec warble             # generate the war file
 bundle install --no-deployment              # allow gems to be modified

@@ -68,7 +68,7 @@ Deploying as a WAR file
         rvm use jruby                               # use JRuby and its gems for packaging
         bundle install --deployment                 # prepare gems for deployment
         RAILS_ENV=production rake assets:precompile # compile assets (js, css)
-        warble                                      # generate the war file
+        bundle exec warble                          # generate the war file
         bundle install --no-deployment              # allow gems to be modified
         rvm use default                             # use standard Ruby for development
 
