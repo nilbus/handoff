@@ -51,6 +51,14 @@ Running the application
 Deploying as a WAR file
 =======================
 
+1. (once) Install JRuby and bundler
+
+   First install a Java JDK. Then:
+
+        rvm install jruby
+        rvm use jruby
+        gem install bundler
+
 1. Generate the war file handoff.war:
 
         bin/build-war
@@ -64,7 +72,9 @@ Deploying as a WAR file
         bundle install --no-deployment              # allow gems to be modified
         rvm use default                             # use standard Ruby for development
 
-2. Deploy to a Tomcat app server:
+1. Deploy to a Tomcat app server:
+
+    * `cd` into the tomcat directory (download and extract Tomcat 8 from http://tomcat.apache.org)
 
     * (once) Make the catalina startup script executable
 
