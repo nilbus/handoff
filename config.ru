@@ -11,7 +11,7 @@ end
 map '/' do
   run ->(env) {
     response = Rack::Response.new
-    response.redirect(prefix)
+    response.redirect("#{prefix}/#{env['REQUEST_PATH']}")
     response.finish
   }
 end
