@@ -1,34 +1,66 @@
-<div class="col-md-7">
-  <div class="well">
-    <h3>Welcome to Handoff</h3>
-    <p>
-    Handoff is a platform for next generation care coordination. With Handoff, 
-    providers can collaboratively annotate FHIR-accessible electronic medical
-    records to insure efficient and continuous care. Handoff is meant to 
-    supplant the phone calls, texts and other forms of informal communication
-    that are essential to care coordination but largely overlooked by 
-    contemporary EHR systems.
-    </p>
-    <%= link_to 'Learn more!', about_path %>
+<div class="row">
+  <div class="col-md-10 col-md-offset-1">
+    <div class="well">
+      <h1>Welcome to Handoff</h1>
+      <p>
+      Handoff is a platform for next generation care coordination. With Handoff,
+      providers can collaboratively annotate FHIR-accessible electronic medical
+      records to insure efficient and continuous care. Handoff is meant to
+      supplant the phone calls, texts and other forms of informal communication
+      that are essential to care coordination but largely overlooked by
+      contemporary EHR systems.
+      </p>
+      <%= link_to 'Learn more!', about_path %>
+    </div>
   </div>
 </div>
 
-<div class="col-md-4">
-  <h2>Log in</h2>
+<div class="row text-center">
+  <h1>
+    Demo Users<br>
+    <small><strong>Log in</strong> as a user with one of these roles:</small>
+  </h1>
 
-  <%= form_for(User.new, url: session_path('user')) do |f| %>
-    <div class="field">
-      <%= f.label :email %><br />
-      <%= f.email_field :email, autofocus: true %>
-    </div>
+  <div class="col-sm-4">
+    <button class="btn btn-primary btn-lg" class="prefill-login" data-login="">Collaborator 1</button>
+    <blockquote><small>
+      A doctor at a neighboring practice who often receives the Initiator's patients.
+    </small></blockquote>
+  </div>
 
-    <div class="field">
-      <%= f.label :password %><br />
-      <%= f.password_field :password, autocomplete: "off" %>
-    </div>
+  <div class="col-sm-4">
+    <button class="btn btn-success btn-lg" class="prefill-login" data-login="">Initiator</button>
+    <blockquote><small>
+      A doctor whose account is configured with access to all electronic medical records provided by his practice's FHIR API.
+    </small></blockquote>
+  </div>
 
-    <div class="actions">
-      <%= f.submit "Log in" %>
+  <div class="col-sm-4">
+    <button class="btn btn-primary btn-lg" class="prefill-login" data-login="">Collaborator 2</button>
+    <blockquote><small>
+      An expert physician who the Initiator often goes to for advice when making tough calls regarding a patient, for patients that have given consent.
+    </small></blockquote>
     </div>
-  <% end %>
+</div>
+
+<div class="row">
+  <div class="col-md-2 col-md-offset-5">
+    <h2>Log in</h2>
+
+    <%= form_for(User.new, url: session_path('user')) do |f| %>
+      <div class="field">
+        <%= f.label :email %><br />
+        <%= f.email_field :email, autofocus: true %>
+      </div>
+
+      <div class="field">
+        <%= f.label :password %><br />
+        <%= f.password_field :password, autocomplete: "off", disabled: true %>
+      </div>
+
+      <div class="actions">
+        <%= f.submit "Log in" %>
+      </div>
+    <% end %>
+  </div>
 </div>
