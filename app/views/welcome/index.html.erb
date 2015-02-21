@@ -50,7 +50,7 @@
     <%= form_for(User.new, url: session_path('user')) do |f| %>
       <div class="field">
         <%= f.label :email %><br />
-        <%= f.email_field :email, autofocus: true %>
+        <%= f.email_field :email %>
       </div>
 
       <div class="field">
