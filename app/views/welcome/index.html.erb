@@ -22,21 +22,21 @@
   </h1>
 
   <div class="col-sm-4">
-    <button class="btn btn-primary btn-lg" class="prefill-login" data-login="">Collaborator 1</button>
+    <button class="btn btn-primary btn-lg prefill-login" data-user-email="dr-peters@cardio.med">Collaborator 1</button>
     <blockquote><small>
       A doctor at a neighboring practice who often receives the Initiator's patients.
     </small></blockquote>
   </div>
 
   <div class="col-sm-4">
-    <button class="btn btn-success btn-lg" class="prefill-login" data-login="">Initiator</button>
+    <button class="btn btn-success btn-lg prefill-login" data-user-email="dr-johnson@pcp.local">Initiator</button>
     <blockquote><small>
       A doctor whose account is configured with access to all electronic medical records provided by his practice's FHIR API.
     </small></blockquote>
   </div>
 
   <div class="col-sm-4">
-    <button class="btn btn-primary btn-lg" class="prefill-login" data-login="">Collaborator 2</button>
+    <button class="btn btn-primary btn-lg prefill-login" data-user-email="dr-erickson@pulmo.med">Collaborator 2</button>
     <blockquote><small>
       An expert physician who the Initiator often goes to for advice when making tough calls regarding a patient, for patients that have given consent.
     </small></blockquote>
@@ -59,7 +59,7 @@
       </div>
 
       <div class="actions">
-        <%= f.submit "Log in" %>
+        <%= f.submit "Log in", class: 'btn btn-default' %>
       </div>
     <% end %>
   </div>
