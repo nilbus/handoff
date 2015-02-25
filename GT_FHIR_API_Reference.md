@@ -7,7 +7,7 @@ We can make calls to the GT FHIR API from our ruby code using the following stru
 ```ruby
 require 'net/http'
 
-url = URI.parse('http://www.example.com/index.html')
+url = URI.parse('https://taurus.i3l.gatech.edu:8443/HealthPort/fhir/Patient/20?_format=json')
 req = Net::HTTP::Get.new(url.to_s)
 res = Net::HTTP.start(url.host, url.port) {|http|
   http.request(req)
@@ -19,7 +19,7 @@ Then the JSON can be parsed in ruby by the controllers to be injected into the a
 
 ```ruby
 require 'json'
-rubyFhirDataHash = JSON.parse(testReturnedFromApiCallToFhirServer)
+rubyFhirDataHash = JSON.parse(textReturnedFromApiCallToFhirServer)
 ```
 
 'rubyFhirDataHash' would then contain a dictionary where the keys are the labels from the API server's JSON response.
@@ -37,12 +37,12 @@ https://taurus.i3l.gatech.edu:8443/HealthPort/fhir/
 
 There are four types of FHIR resources available to us for our project:
 
-- Patient (list only no search filter)
-- Observation (with search filter: PatientID and Coding System)
-- Condition (with search filter: PatientID and Coding System)
-- MedicationPrescription (with search filter: PatientID and Coding System)
+1. Patient (list only no search filter)
+2. Observation (with search filter: PatientID and Coding System)
+3. Condition (with search filter: PatientID and Coding System)
+4. MedicationPrescription (with search filter: PatientID and Coding System)
 
-### Patient
+### 1. Patient
 
 #### Get JSON of all patients
 
@@ -52,7 +52,7 @@ https://taurus.i3l.gatech.edu:8443/HealthPort/fhir/Patient?_format=json
 
 https://taurus.i3l.gatech.edu:8443/HealthPort/fhir/Patient/20?_format=json
 
-### Observation
+### 2. Observation
 
 #### Get JSON of all observations (caution:expensive query)
 
@@ -62,7 +62,7 @@ https://taurus.i3l.gatech.edu:8443/HealthPort/fhir/Observation?_format=json
 
 https://taurus.i3l.gatech.edu:8443/HealthPort/fhir/Observation?subject=Patient/20&_format=json
 
-### Condition
+### 3. Condition
 
 #### Get JSON of all conditions
 
@@ -72,7 +72,7 @@ https://taurus.i3l.gatech.edu:8443/HealthPort/fhir/Condition?_format=json
 
 https://taurus.i3l.gatech.edu:8443/HealthPort/fhir/Condition?subject=Patient/20&_format=json
 
-### Medication Prescription
+### 4. Medication Prescription
 
 #### Get JSON of all Medication Prescriptions
 
