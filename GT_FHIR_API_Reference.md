@@ -12,7 +12,7 @@ req = Net::HTTP::Get.new(url.to_s)
 res = Net::HTTP.start(url.host, url.port) {|http|
   http.request(req)
 }
-puts res.body
+textReturnedFromApiCallToFhirServer = res.body
 ```
 
 Then the JSON can be parsed in ruby by the controllers to be injected into the appropriate views using the following structure (after the json gem has been installed - $gem install json):
@@ -26,7 +26,7 @@ rubyFhirDataHash = JSON.parse(textReturnedFromApiCallToFhirServer)
 
 ## Sample GT FHIR API Calls
 
-Note that the machine making calls to the GT FHIR API must be connected to the GT network, or it will not receive a response.
+Note that the machine making calls to the GT FHIR API must be connected to the GT network, or it will not receive a response (instructions for VPN-ing into the GT network here:  http://oit.gatech.edu/service/vpn/vpn-service-remote-access).
 
 One problem is the GT FHIR API seems to be returning JSON files instead of the text directly, which Bo asked about on Piazza here but it wasn't addressed: https://piazza.com/class/i4eoysegvxp2db?cid=202
 
