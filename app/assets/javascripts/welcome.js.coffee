@@ -4,9 +4,7 @@ logIn = (userEmail) ->
   $form = $('form.new_user')
   $form.find('#user_email').val(userEmail)
   $form.find('#user_password').val(SHARED_PASSWORD)
-  setTimeout ->
-    $form.submit()
-  , 500
+  $form.submit()
 
 showLoading = ($button) ->
   $button.text 'Logging in…'
