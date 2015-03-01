@@ -80,6 +80,7 @@ Deploying as a WAR file
         bundle exec warble                          # generate the war file
         bundle install --no-deployment              # allow gems to be modified
         rvm use default                             # use standard Ruby for development
+        rake assets:clobber                         # clear compiled assets
 
 1. Deploy to a Tomcat app server:
 
