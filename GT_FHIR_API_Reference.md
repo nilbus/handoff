@@ -1,19 +1,13 @@
-# GT FHIR API Reference
+# FHIR API Reference
 
 ## Accessing the API from our web app
 
-We can make calls to the GT FHIR API from our ruby code using the following
-structure:
+We can make calls to the FHIR API from our ruby code using the following
+structure (after adding the httparty gem via "gem 'httparty'" in the gem file):
 
 ```ruby
-require 'net/http'
-
-url = URI.parse('https://taurus.i3l.gatech.edu:8443/HealthPort/fhir/Patient/20?_format=json')
-req = Net::HTTP::Get.new(url.to_s)
-res = Net::HTTP.start(url.host, url.port) {|http|
-  http.request(req)
-}
-textReturnedFromApiCallToFhirServer = res.body
+require 'httparty'
+response = HTTParty.get('http://fhirtest.uhn.ca/baseDstu1/Patient/4389?_format=json')
 ```
 
 Then the JSON can be parsed in ruby by the controllers to be injected into the
@@ -22,11 +16,15 @@ installed - `gem install json`):
 
 ```ruby
 require 'json'
-rubyFhirDataHash = JSON.parse(textReturnedFromApiCallToFhirServer)
+rubyFhirDataHash = JSON.parse(response.body)
 ```
 
 'rubyFhirDataHash' would then contain a dictionary where the keys are the
 labels from the API server's JSON response.
+
+```ruby
+lastName = rubyFhirDataHash["name"][0]["family"]
+```
 
 ## Sample GT FHIR API Calls
 
@@ -43,6 +41,10 @@ GT FHIR server seems to be providing normally).
 
 GT FHIR server base URL:
 https://taurus.i3l.gatech.edu:8443/HealthPort/fhir/
+
+Due to the GT FHIR API server's lack of reliability we may also use the HAPI FHIR server:
+
+HAPI: 
 
 There are four types of FHIR resources available to us for our project:
 
