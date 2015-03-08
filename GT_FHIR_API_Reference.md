@@ -3,7 +3,7 @@
 ## Accessing the API from our web app
 
 We can make calls to the FHIR API from our ruby code using the following
-structure (after adding the httparty gem via "gem 'httparty'" in the gem file):
+structure (after adding the httparty gem via `gem 'httparty'` in the gem file):
 
 ```ruby
 require 'httparty'
