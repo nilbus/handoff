@@ -18,6 +18,7 @@ class AnnotationRenderer
   renderAnnotation: (annotation) ->
     $annotationContainer = $('.annotations')
     $annotatable = $(".annotatable##{annotation.id}")
+    return if $annotatable.size() == 0
     yPosition = $annotatable.position().top
     $element = $("
       <div class='annotation panel panel-default'>
