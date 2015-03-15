@@ -1,14 +1,17 @@
 class Patient
-  def self.search(query)
-    API.patient_search(query)
+  attr_accessor :fname, :lname, :pid
+  @fname
+  @lname
+  @pid
+
+  def initialize(fname,lname,pid)
+    @fname = fname
+    @lname = lname
+    @pid = pid
   end
 
-  def initialize(attributes)
-    @attributes = attributes
-  end
-
-  def name
-    @attributes['name']
+  def FullName
+    '#{fname} #{lname}'
   end
 
   def observations
