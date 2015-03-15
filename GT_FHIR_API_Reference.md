@@ -59,9 +59,9 @@ There are four types of FHIR resources available to us for our project:
 
 `https://taurus.i3l.gatech.edu:8443/HealthPort/fhir/Patient?_format=json`
 
-#### Get JSON for patient with id = 20
+#### Get JSON for patient with id = 3.358020000-01
 
-`https://taurus.i3l.gatech.edu:8443/HealthPort/fhir/Patient/20?_format=json`
+`https://taurus.i3l.gatech.edu:8443/HealthPort/fhir/Patient/3.358020000-01?_format=json`
 
 ### 2. Observation
 
@@ -69,9 +69,9 @@ There are four types of FHIR resources available to us for our project:
 
 `https://taurus.i3l.gatech.edu:8443/HealthPort/fhir/Observation?_format=json`
 
-#### Get JSON of observations for patient 20
+#### Get JSON of observations for patient 3.358020000-01
 
-`https://taurus.i3l.gatech.edu:8443/HealthPort/fhir/Observation?subject=Patient/20&_format=json`
+`https://taurus.i3l.gatech.edu:8443/HealthPort/fhir/Observation?subject=Patient/3.358020000-01&_format=json`
 
 ### 3. Condition
 
@@ -79,9 +79,9 @@ There are four types of FHIR resources available to us for our project:
 
 `https://taurus.i3l.gatech.edu:8443/HealthPort/fhir/Condition?_format=json`
 
-#### Get JSON of conditions for patient 20
+#### Get JSON of conditions for patient 3.358020000-01
 
-`https://taurus.i3l.gatech.edu:8443/HealthPort/fhir/Condition?subject=Patient/20&_format=json`
+`https://taurus.i3l.gatech.edu:8443/HealthPort/fhir/Condition?subject=Patient/3.358020000-01&_format=json`
 
 ### 4. Medication Prescription
 
@@ -89,9 +89,9 @@ There are four types of FHIR resources available to us for our project:
 
 `https://taurus.i3l.gatech.edu:8443/HealthPort/fhir/MedicationPrescription?_format=json`
 
-#### Get JSON of medication prescriptions for patient 20
+#### Get JSON of medication prescriptions for patient 3.358020000-01
 
-`https://taurus.i3l.gatech.edu:8443/HealthPort/fhir/MedicationPrescription?subject=Patient/20&_format=json`
+`https://taurus.i3l.gatech.edu:8443/HealthPort/fhir/MedicationPrescription?subject=Patient/3.358020000-01&_format=json`
 
 ## Recommended FHIR Data Usage for Handoff
 
