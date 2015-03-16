@@ -1,20 +1,30 @@
 class Patient
-  attr_accessor :fname, :lname, :pid
+  attr_accessor :fname, :lname, :pid, :observations, :conditions, :medications, :fhir
   @fname
   @lname
   @pid
+  @observations
+  @conditions
+  @medications
+  @fhir
 
-  def initialize(fname,lname,pid)
+  def initialize(pid, fname = nil, lname = nil)
+    @pid = pid
     @fname = fname
     @lname = lname
-    @pid = pid
+    @fhir = API.new
   end
 
   def FullName
-    '#{fname} #{lname}'
+    '#{@fname} #{@lname}'
   end
 
-  def observations
-    @observations ||= API.patient_observations(self)
+  def GetData()
+    @fhir.UpdatePatient(self)
+    @fhir.UpdatePatientObservations(self)
+    @fhir.UpdatePatientConditions(self)
+    @fhir.UpdatePatientMedications(self)
+    self
   end
+
 end
