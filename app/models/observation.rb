@@ -1,7 +1,8 @@
 class Observation
-  attr_accessor :id, :value, :units, :comment, :pub_date, :status, :reliability, :code_system, :code
+  attr_accessor :display, :id, :value, :units, :comment, :pub_date, :status, :reliability, :code_system, :code
 
-  def initialize(id, value, units, comment, pub_date, status, reliability, code_system, code)
+  def initialize(display, id, value, units, comment, pub_date, status, reliability, code_system, code)
+    @display = display
     @id = id
     @value = value
     @units = units

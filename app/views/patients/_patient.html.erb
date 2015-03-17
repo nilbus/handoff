@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-md-2">
     <div class="well">
-      <h3>Marla Lewis</h3>
+      <h3><%= @patient_data.full_name %></h3>
       <ul class="nav nav-pills nav-stacked">
         <li><a href="#overview">Overview</a></li>
         <li><a href="#observations">Observations</a></li>
@@ -17,7 +17,7 @@
         Patient Overview
       </div>
       <div class="panel-body">
-        I have diabetes.
+        <%= "Name: #{@patient_data.full_name}" %>
       </div>
     </div>
     <a name="observations"></a>
@@ -27,7 +27,19 @@
       </div>
       <div class="panel-body">
         <div id="observation-1" class="annotatable">
-          I have diabetes.
+          <% @patient_data.observations.each do |obs| %>
+            <strong><p><%= "display: #{obs.display}" %></p></strong>
+            <p><%= "value: #{obs.value}:" %></p>
+            <p><%= "units: #{obs.units}:" %></p>
+            <p><%= "comment: #{obs.comment}:" %></p>
+            <p><%= "pub_date: #{obs.pub_date}:" %></p>
+            <p><%= "status: #{obs.status}:" %></p>
+            <p><%= "reliability: #{obs.reliability}:" %></p>
+            <p><%= "code_system: #{obs.code_system}:" %></p>
+            <p><%= "code: #{obs.code}:" %></p>
+            <p><%= "id: #{obs.id}:" %></p>
+            <br> </br>
+          <% end %>
         </div>
       </div>
     </div>
@@ -38,7 +50,15 @@
       </div>
       <div class="panel-body">
         <div id="condition-1" class="annotatable">
-          I have diabetes.
+          <% @patient_data.conditions.each do |con| %>
+            <strong><p><%= "value: #{con.value}:" %></p></strong
+            <p><%= "id: #{con.id}:" %></p>
+            <p><%= "onset_date: #{con.onset_date}:" %></p>
+            <p><%= "status: #{con.status}:" %></p>
+            <p><%= "code_system: #{con.code_system}:" %></p>
+            <p><%= "code: #{con.code}:" %></p>
+            <br> </br>
+          <% end %>
         </div>
       </div>
     </div>
@@ -50,7 +70,21 @@
       </div>
       <div class="panel-body">
         <div id="prescription-1" class="annotatable">
-          Advil
+          <% @patient_data.medications.each do |med| %>
+            <strong><p><%= "value: #{med.value}:" %></p></strong
+            <p><%= "id: #{med.id}:" %></p>
+            <p><%= "status: #{med.status}:" %></p>
+            <p><%= "prescriber: #{med.prescriber}:" %></p>
+            <p><%= "written_date: #{med.written_date}:" %></p>
+            <p><%= "dosage_value: #{med.dosage_value}:" %></p>
+            <p><%= "dosage_units: #{med.dosage_units}:" %></p>
+            <p><%= "dosage_text: #{med.dosage_text}:" %></p>
+            <p><%= "dispense_quantity: #{med.dispense_quantity}:" %></p>
+            <p><%= "dispense_repeats: #{med.dispense_repeats}:" %></p>            
+            <p><%= "coding_system: #{med.coding_system}:" %></p>
+            <p><%= "code: #{med.code}:" %></p>
+            <br> </br>
+          <% end %>
         </div>
       </div>
     </div>

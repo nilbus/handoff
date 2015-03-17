@@ -7,17 +7,15 @@ class Patient
   @observations
   @conditions
   @medications
-  #@fhir
 
   def initialize(pid, fname = nil, lname = nil)
     @pid = pid
     @fname = fname
     @lname = lname
-    #@fhir = API.new
   end
 
   def full_name
-    '#{@fname} #{@lname}'
+    "#{@fname} #{@lname}"
   end
 
   def get_data

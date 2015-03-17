@@ -18,8 +18,8 @@ class API
   def self.get_patient_object_from_data(patient_data)
   # pid, fname = nil, lname = nil
     this_pid = patient_data["identifier"][0]["value"] if dig(patient_data, "identifier", "array", "value")
-    this_name_first = patient_data["name"][0]["given"] if dig(patient_data,"name", "array", "given")
-    this_name_last = patient_data["name"][0]["family"] if dig(patient_data, "name", "array", "family")
+    this_name_first = patient_data["name"][0]["given"].first if dig(patient_data,"name", "array", "given")
+    this_name_last = patient_data["name"][0]["family"].first if dig(patient_data, "name", "array", "family")
     Patient.new(this_pid, this_name_first, this_name_last)
   end
 
@@ -34,8 +34,8 @@ class API
   def self.update_patient(patient)
     results = HTTParty.get("#{BASE_URL_CONST}#{RPATH_PAT_CONST}#{patient.pid}#{RPATH_PARAMS_CONST}")
     resultsHash = JSON.parse(results.body)
-    patient.fname = resultsHash["name"][0]["given"]
-    patient.lname = resultsHash["name"][0]["family"]
+    patient.fname = resultsHash["name"][0]["given"].first
+    patient.lname = resultsHash["name"][0]["family"].first
     patient
   end
   
@@ -48,7 +48,7 @@ class API
 ### Observations
 
   def self.get_observation_object_from_data(observation_data)
-    # id, value, units, comment, pub_date, status, reliability, code_system, code
+    # id, value, units, comment, pub_date, status, reliability, code_system, code, display_div
     this_id = observation_data["id"] if self.dig(observation_data, "id")
     this_value = observation_data["content"]["valueQuantity"]["value"] if dig(observation_data, "content", "valueQuantity", "value")
     this_units = observation_data["content"]["valueQuantity"]["units"] if dig(observation_data, "content", "valueQuantity", "units")
@@ -58,7 +58,8 @@ class API
     this_reliability = observation_data["content"]["reliability"] if dig(observation_data, "content", "reliability")
     this_code_system = observation_data["content"]["name"]["coding"][0]["system"] if dig(observation_data, "content", "name", "coding", "array", "system")
     this_code = observation_data["content"]["name"]["coding"][0]["code"] if dig(observation_data, "content", "name", "coding", "array", "code")
-    Observation.new(this_id, this_value, this_units, this_comment, this_pub_date, this_status, this_reliability, this_code_system, this_code)
+    this_display = observation_data["content"]["text"]["div"] if dig(observation_data, "content", "text", "div")
+    Observation.new(this_display, this_id, this_value, this_units, this_comment, this_pub_date, this_status, this_reliability, this_code_system, this_code)
   end
 
   def self.update_patient_observations(patient)
