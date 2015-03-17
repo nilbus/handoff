@@ -33,9 +33,18 @@ Initial Setup
 
         bundle install
 
+1. Drop old instances of the database 
+
+        bin/rake db:drop
+
 1. Initialize the database
 
-        bin/rake db:setup
+	    bin/rake db:setup
+
+1. Seed the database
+
+	    bin/rake db:seed
+
 
 Running the application
 =======================
