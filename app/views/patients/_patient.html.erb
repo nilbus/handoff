@@ -28,7 +28,7 @@
       <div class="panel-body">
         <div id="observation-1" class="annotatable">
           <% @patient_data.observations.each do |obs| %>
-            <strong><p><%= "display: #{obs.display}" %></p></strong>
+            <strong><p><%=  obs.display.html_safe %></p></strong>
             <p><%= "value: #{obs.value}:" %></p>
             <p><%= "units: #{obs.units}:" %></p>
             <p><%= "comment: #{obs.comment}:" %></p>
@@ -91,5 +91,31 @@
 
   </div>
   <div class="col-md-3 annotations">
+    <% if !@handoff %>
+    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#handoffModal">
+      Create Handoff!
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="handoffModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="handoffModalLabel">Create Handoff for <%= "#{@patient_data.full_name}"%></h4>
+          </div>
+          <div class="modal-body">
+            <form>
+            Name: <input name="name" type="text"></input>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Create Handoff</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% end %>
   </div>
 </div>
