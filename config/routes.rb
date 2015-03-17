@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources "patients", only: [:index, :show]
+  resources "patients", only: [:index, :show], id: /[^\/]+/
   resources "handoffs", only: [:index, :show, :create, :destroy]
   resources "annotations", only: [:create, :update, :destroy]
   resources "shares", only: [:create, :destroy]
