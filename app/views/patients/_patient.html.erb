@@ -105,13 +105,15 @@
             <h4 class="modal-title" id="handoffModalLabel">Create Handoff for <%= "#{@patient_data.full_name}"%></h4>
           </div>
           <div class="modal-body">
-            <form>
-            Name: <input name="name" type="text"></input>
-            </form>
+           <% @handoff = Handoff.new() %>
+           <%= form_for @handoff do |f| %>
+             <%= f.hidden_field :creator_id, :value => current_user.id %>
+             <%= f.hidden_field :patient_id, :value => @patient_data.pid %>
+             <%= f.submit "Create Handoff", class: "btn btn-primary" %>
+          <% end %>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Create Handoff</button>
           </div>
         </div>
       </div>

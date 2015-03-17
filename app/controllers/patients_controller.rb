@@ -5,7 +5,6 @@ class PatientsController < ApplicationController
   end
 
   def show
-    
     @patient_id = params[:pid]
     @patient_data = Patient.new(@patient_id)
     @patient_data.get_data

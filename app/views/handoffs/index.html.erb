@@ -1,2 +1,6 @@
-<h1>Handoffs#index</h1>
-<p>Find me in app/views/patients/index.html.erb</p>
+<h1>My Handoffs</h1>
+<% @handoffs.each do |handoff| %>
+  <% patient = Patient.new(handoff.patient_id)
+     patient.get_data %>
+<p><%= link_to "#{patient.full_name}: (#{patient.pid})", "#{handoffs_path}/#{handoff.id}" %></p>
+<% end %>

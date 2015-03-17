@@ -19,9 +19,6 @@
       <ul class="nav navbar-nav">
         <% if user_signed_in? %>
         <li>
-          <%= link_to "Dashboard", "#" %>
-        </li>
-        <li>
           <%= link_to "Patient Records", patients_path %>
         </li>
         <% end %>

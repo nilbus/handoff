@@ -1,5 +1,5 @@
 class Patient
-  require "API"
+  #require "API"
   attr_accessor :fname, :lname, :pid, :observations, :conditions, :medications, :fhir
   @fname
   @lname
