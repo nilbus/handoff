@@ -24,7 +24,7 @@ class API
       get_patient_object_from_data(patient_data["content"])
     end
   end
-  
+
   def self.update_patient(patient)
     results = HTTParty.get("#{BASE_URL_CONST}#{RPATH_PAT_CONST}#{patient.pid}#{RPATH_PARAMS_CONST}")
     resultsHash = JSON.parse(results.body)
@@ -32,7 +32,7 @@ class API
     patient.lname = resultsHash["name"][0]["family"].first
     patient
   end
-  
+
   def self.get_patient_from_pid(pid)
     results = HTTParty.get("#{BASE_URL_CONST}#{RPATH_PAT_CONST}#{pid}#{RPATH_PARAMS_CONST}")
     resultsHash = JSON.parse(results.body)
@@ -63,7 +63,7 @@ class API
       get_observation_object_from_data(observation_data)
     end
   end
-  
+
 ### Conditions
 
   def self.get_condition_object_from_data(condition_data)
@@ -111,9 +111,9 @@ class API
       get_medication_object_from_data(medication_data)
     end
   end
-  
-### Helper Methods  
-  
+
+### Helper Methods
+
   def self.dig(hash, *path)
     path.inject(hash) do |location, key|
       retVal = nil
@@ -126,7 +126,7 @@ class API
       end
     end
   end
-  
+
   # http://stackoverflow.com/questions/1820451/ruby-style-how-to-check-whether-a-nested-hash-element-exists
   #class Hash
     #def dig(*path)
@@ -135,5 +135,5 @@ class API
       #end
     #end
   #end
-  
+
 end
