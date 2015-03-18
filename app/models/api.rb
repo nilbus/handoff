@@ -7,9 +7,6 @@ class API
   RPATH_PARAMS_CONST = "?_format=json"
   RPATH_FOR_PATIENT_PREFIX_CONST = "&subject=Patient/"
 
-  def initialize
-  end
-
 ### Patients
 
   def self.get_patient_object_from_data(patient_data)
