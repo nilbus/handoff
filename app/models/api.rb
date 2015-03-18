@@ -1,14 +1,14 @@
-BASE_URL_CONST = "https://taurus.i3l.gatech.edu:8443/HealthPort/fhir/"
-RPATH_PAT_CONST = "Patient/"
-RPATH_OBS_CONST = "Observation/"
-RPATH_CON_CONST = "Condition/"
-RPATH_MED_CONST = "MedicationPrescription/"
-RPATH_PARAMS_CONST = "?_format=json"
-RPATH_FOR_PATIENT_PREFIX_CONST = "&subject=Patient/"
-
 class API
   require "httparty"
   require "json"
+
+  BASE_URL_CONST = "https://taurus.i3l.gatech.edu:8443/HealthPort/fhir/"
+  RPATH_PAT_CONST = "Patient/"
+  RPATH_OBS_CONST = "Observation/"
+  RPATH_CON_CONST = "Condition/"
+  RPATH_MED_CONST = "MedicationPrescription/"
+  RPATH_PARAMS_CONST = "?_format=json"
+  RPATH_FOR_PATIENT_PREFIX_CONST = "&subject=Patient/"
 
   def initialize
   end
