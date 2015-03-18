@@ -1,7 +1,4 @@
 class API
-  require "httparty"
-  require "json"
-
   BASE_URL_CONST = "https://taurus.i3l.gatech.edu:8443/HealthPort/fhir/"
   RPATH_PAT_CONST = "Patient/"
   RPATH_OBS_CONST = "Observation/"
