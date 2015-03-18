@@ -1,12 +1,12 @@
 class Patient
-  #require "API"
-  attr_accessor :fname, :lname, :pid, :observations, :conditions, :medications, :fhir
-  @fname
-  @lname
-  @pid
-  @observations
-  @conditions
-  @medications
+  attr_accessor :fname, :lname, :pid, :fhir
+  attr_writer :observations, :conditions, :medications
+
+  class << self
+    def all
+      API.all_patients
+    end
+  end
 
   def initialize(pid, fname = nil, lname = nil)
     @pid = pid
@@ -15,15 +15,31 @@ class Patient
   end
 
   def full_name
+    return if @got_full_name || @fname.present? && @lname.present?
+    API.update_patient(self)
+    @got_full_name = true
     "#{@fname} #{@lname}"
   end
 
-  def get_data
-    API.update_patient(self)
+  def observations
+    return if @got_observations
     API.update_patient_observations(self)
+    @got_observations = true
+    @observations
+  end
+
+  def conditions
+    return if @got_conditions
     API.update_patient_conditions(self)
+    @got_conditions = true
+    @conditions
+  end
+
+  def medications
+    return if @got_medications
     API.update_patient_medications(self)
-    self
+    @got_medications = true
+    @medications
   end
 
 end
