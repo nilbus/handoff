@@ -1,11 +1,5 @@
 class Patient
   attr_accessor :fname, :lname, :pid, :observations, :conditions, :medications, :fhir
-  @fname
-  @lname
-  @pid
-  @observations
-  @conditions
-  @medications
 
   def initialize(pid, fname = nil, lname = nil)
     @pid = pid
