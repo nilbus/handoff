@@ -19,24 +19,24 @@ class API
 
   def self.all_patients()
     results = HTTParty.get("#{BASE_URL_CONST}#{RPATH_PAT_CONST}#{RPATH_PARAMS_CONST}")
-    resultsHash = JSON.parse(results.body)
-    patients = resultsHash["entry"].map do |patient_data|
+    results_hash = JSON.parse(results.body)
+    patients = results_hash["entry"].map do |patient_data|
       get_patient_object_from_data(patient_data["content"])
     end
   end
 
   def self.update_patient(patient)
     results = HTTParty.get("#{BASE_URL_CONST}#{RPATH_PAT_CONST}#{patient.pid}#{RPATH_PARAMS_CONST}")
-    resultsHash = JSON.parse(results.body)
-    patient.fname = resultsHash["name"][0]["given"].first
-    patient.lname = resultsHash["name"][0]["family"].first
+    results_hash = JSON.parse(results.body)
+    patient.fname = results_hash["name"][0]["given"].first
+    patient.lname = results_hash["name"][0]["family"].first
     patient
   end
 
   def self.get_patient_from_pid(pid)
     results = HTTParty.get("#{BASE_URL_CONST}#{RPATH_PAT_CONST}#{pid}#{RPATH_PARAMS_CONST}")
-    resultsHash = JSON.parse(results.body)
-    get_patient_object_from_data(resultsHash)
+    results_hash = JSON.parse(results.body)
+    get_patient_object_from_data(results_hash)
   end
 
 ### Observations
@@ -58,8 +58,8 @@ class API
 
   def self.update_patient_observations(patient)
     results = HTTParty.get("#{BASE_URL_CONST}#{RPATH_OBS_CONST}#{RPATH_PARAMS_CONST}#{RPATH_FOR_PATIENT_PREFIX_CONST}#{patient.pid}")
-    resultsHash = JSON.parse(results.body)
-    patient.observations = resultsHash["entry"].map do |observation_data|
+    results_hash = JSON.parse(results.body)
+    patient.observations = results_hash["entry"].map do |observation_data|
       get_observation_object_from_data(observation_data)
     end
   end
@@ -79,8 +79,8 @@ class API
 
   def self.update_patient_conditions(patient)
     results = HTTParty.get("#{BASE_URL_CONST}#{RPATH_CON_CONST}#{RPATH_PARAMS_CONST}#{RPATH_FOR_PATIENT_PREFIX_CONST}#{patient.pid}")
-    resultsHash = JSON.parse(results.body)
-    patient.conditions = resultsHash["entry"].map do |condition_data|
+    results_hash = JSON.parse(results.body)
+    patient.conditions = results_hash["entry"].map do |condition_data|
       get_condition_object_from_data(condition_data)
     end
   end
@@ -106,8 +106,8 @@ class API
 
   def self.update_patient_medications(patient)
     results = HTTParty.get("#{BASE_URL_CONST}#{RPATH_MED_CONST}#{RPATH_PARAMS_CONST}#{RPATH_FOR_PATIENT_PREFIX_CONST}#{patient.pid}")
-    resultsHash = JSON.parse(results.body)
-    patient.medications = resultsHash["entry"].map do |medication_data|
+    results_hash = JSON.parse(results.body)
+    patient.medications = results_hash["entry"].map do |medication_data|
       get_medication_object_from_data(medication_data)
     end
   end
