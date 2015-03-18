@@ -1,6 +1,12 @@
 class Patient
   attr_accessor :fname, :lname, :pid, :observations, :conditions, :medications, :fhir
 
+  class << self
+    def all
+      API.all_patients
+    end
+  end
+
   def initialize(pid, fname = nil, lname = nil)
     @pid = pid
     @fname = fname
