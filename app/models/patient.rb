@@ -15,33 +15,31 @@ class Patient
   end
 
   def full_name
+    return if @got_full_name || @fname.present? && @lname.present?
+    API.update_patient(self)
+    @got_full_name = true
     "#{@fname} #{@lname}"
   end
 
   def observations
-    load_data
+    return if @got_observations
+    API.update_patient_observations(self)
+    @got_observations = true
     @observations
   end
 
   def conditions
-    load_data
+    return if @got_conditions
+    API.update_patient_conditions(self)
+    @got_conditions = true
     @conditions
   end
 
   def medications
-    load_data
-    @medications
-  end
-
-  private
-
-  def load_data
-    return if @got_data
-    API.update_patient(self)
-    API.update_patient_observations(self)
-    API.update_patient_conditions(self)
+    return if @got_medications
     API.update_patient_medications(self)
-    @got_data = true
+    @got_medications = true
+    @medications
   end
 
 end
