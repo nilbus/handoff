@@ -27,7 +27,7 @@
       </div>
       <div class="panel-body">
         <% @patient_data.observations.each do |observation| %>
-          <%= render partial: "observation", locals: {observation: observation} %>
+          <%= render partial: "patients/observation", locals: {observation: observation} %>
         <% end %>
       </div>
     </div>
@@ -38,7 +38,7 @@
       </div>
       <div class="panel-body">
         <% @patient_data.conditions.each do |condition| %>
-          <%= render partial: "condition", locals: {condition: condition} %>
+          <%= render partial: "patients/condition", locals: {condition: condition} %>
         <% end %>
       </div>
     </div>
@@ -50,7 +50,7 @@
       </div>
       <div class="panel-body">
         <% @patient_data.medications.each do |prescription| %>
-          <%= render partial: "prescription", locals: {prescription: prescription} %>
+          <%= render partial: "patients/prescription", locals: {prescription: prescription} %>
         <% end %>
       </div>
     </div>
