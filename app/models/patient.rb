@@ -15,8 +15,7 @@ class Patient
   end
 
   def full_name
-    return if @got_full_name || @fname.present? && @lname.present?
-    API.update_patient(self)
+    API.update_patient(self) unless @got_full_name || @fname.present? && @lname.present?
     @got_full_name = true
     "#{@fname} #{@lname}"
   end
