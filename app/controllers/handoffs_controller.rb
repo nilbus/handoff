@@ -6,7 +6,6 @@ class HandoffsController < ApplicationController
   def show
     @handoff = Handoff.find(params[:id])
     @patient_data = Patient.new(@handoff.patient_id)
-    @patient_data.get_data
   end
 
   def create

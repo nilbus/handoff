@@ -1,6 +1,5 @@
 <h1>My Handoffs</h1>
 <% @handoffs.each do |handoff| %>
-  <% patient = Patient.new(handoff.patient_id)
-     patient.get_data %>
+  <% patient = Patient.new(handoff.patient_id) %>
 <p><%= link_to "#{patient.full_name}: (#{patient.pid})", "#{handoffs_path}/#{handoff.id}" %></p>
 <% end %>
