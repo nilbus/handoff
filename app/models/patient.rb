@@ -21,21 +21,21 @@ class Patient
   end
 
   def observations
-    # return if @got_observations
+    return @observations if @got_observations
     API.update_patient_observations(self)
     @got_observations = true
     @observations
   end
 
   def conditions
-    # return if @got_conditions
+    return @conditions if @got_conditions
     API.update_patient_conditions(self)
     @got_conditions = true
     @conditions
   end
 
   def medications
-    # return if @got_medications
+    return @medications if @got_medications
     API.update_patient_medications(self)
     @got_medications = true
     @medications
