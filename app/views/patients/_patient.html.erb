@@ -89,15 +89,30 @@
       Share
     </button>
 
-    <div class="modal fade" id="handoffModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal fade" id="shareModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="handoffModalLabel">Share with Collaborators <%= "#{@patient_data.full_name}"%></h4>
+            <h4 class="modal-title" id="shareModalLabel">Share with Collaborators</h4>
           </div>
           <div class="modal-body">
-            Don't be fool and share this with people you shouldn't. TODO add form that populates share table
+           <p>
+             <i>Disclaimer: The data you are about to share is protected by HIPAA. Don't share this data without patient consent.</i>
+           </p>
+           <%
+             @share  = Share.new()
+             currentIds = @handoff.shares.map { |s| s.user_id }
+             possibleUsers = User.where("id not in (?)", currentIds)
+             selectOptions = possibleUsers.map { |u| [u.email, u.id] }
+           %>
+           <%= form_for @share do |f| %>
+             <%= f.hidden_field :handoff_id, :value => @handoff.id %>
+             <p>
+               <%= f.select :user_id, selectOptions %>
+             </p>
+             <%= f.submit "Share Handoff", class: "btn btn-primary" %>
+           <% end %>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
