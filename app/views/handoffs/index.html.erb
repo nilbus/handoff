@@ -1,5 +1,7 @@
-<h1>My Handoffs</h1>
-<% @handoffs.each do |handoff| %>
-  <% patient = Patient.new(handoff.patient_id) %>
-<p><%= link_to "#{patient.full_name}: (#{patient.pid})", "#{handoffs_path}/#{handoff.id}" %></p>
-<% end %>
+<div class="col-md-10 col-md-offset-1">
+  <h1>My Handoffs</h1>
+  <% @handoffs.each do |handoff| %>
+    <% patient = Patient.new(handoff.patient_id) %>
+  <p><%= link_to "#{patient.full_name}: (#{patient.pid})", "#{handoffs_path}/#{handoff.id}" %></p>
+  <% end %>
+</div>

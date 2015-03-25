@@ -1,7 +1,6 @@
-<h1>Patients</h1>
-
-<% # these should probably link to a page to create a handoff for given patient %>
-<% # link_to text_displayed, destination %>
-<% @directory.each do |a_patient| %>
-<p><%= link_to "#{a_patient.full_name}: (#{a_patient.pid})", "#{patients_path}/#{a_patient.pid}" %></p>
-<% end %>
+<div class="col-md-10 col-md-offset-1">
+  <h1>Patients</h1>
+  <% @directory.each do |a_patient| %>
+    <p><%= link_to "#{a_patient.full_name}: (#{a_patient.pid})", "#{patients_path}/#{a_patient.pid}" %></p>
+  <% end %>
+</div>
