@@ -14,10 +14,14 @@
     <a class="anchor" name="overview"></a>
     <div class="panel panel-default">
       <div class="panel-heading">
-        Patient Overview
+        Patient Summary
       </div>
       <div class="panel-body">
-        <%= "Name: #{@patient_data.full_name}" %>
+        <b> Name: </b><%= "#{@patient_data.full_name}" %>
+        <br>
+        <b> Weight: </b><%= "#{@patient_data.weight}"%> <br>
+        <b> Height: </b> <br>
+        <b> Age: </b> <br>
       </div>
     </div>
     <a class="anchor" name="observations"></a>
