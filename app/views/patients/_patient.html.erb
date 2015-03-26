@@ -70,21 +70,23 @@
     <div class="modal fade" id="handoffModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="handoffModalLabel">Create Handoff for <%= "#{@patient_data.full_name}"%></h4>
-          </div>
-          <div class="modal-body">
-           <% @handoff = Handoff.new() %>
-           <%= form_for @handoff do |f| %>
-             <%= f.hidden_field :creator_id, :value => current_user.id %>
-             <%= f.hidden_field :patient_id, :value => @patient_data.pid %>
-             <%= f.submit "Create Handoff", class: "btn btn-primary" %>
+          <% @handoff = Handoff.new() %>
+          <%= form_for @handoff do |f| %>
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="handoffModalLabel">Create Handoff for <%= "#{@patient_data.full_name}"%></h4>
+            </div>
+            <div class="modal-body">
+              <%= f.label :name %>
+              <%= f.text_field :name, :value => "#{@patient_data.full_name} - #{DateTime.now.to_date}", :size => 40 %>
+              <%= f.hidden_field :creator_id, :value => current_user.id %>
+              <%= f.hidden_field :patient_id, :value => @patient_data.pid %>
+            </div>
+            <div class="modal-footer">
+              <%= f.submit "Create Handoff", class: "btn btn-primary" %>
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
           <% end %>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          </div>
         </div>
       </div>
     </div>
@@ -96,31 +98,32 @@
     <div class="modal fade" id="shareModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="shareModalLabel">Share with Collaborators</h4>
-          </div>
-          <div class="modal-body">
-           <p>
-             <i>Disclaimer: The data you are about to share is protected by HIPAA. Don't share this data without patient consent.</i>
-           </p>
-           <%
-             @share  = Share.new()
-             currentIds = @handoff.shares.map { |s| s.user_id }
-             possibleUsers = User.where("id not in (?)", currentIds)
-             selectOptions = possibleUsers.map { |u| [u.email, u.id] }
-           %>
-           <%= form_for @share do |f| %>
+          <%
+            @share  = Share.new()
+            currentIds = @handoff.shares.map { |s| s.user_id }
+            possibleUsers = User.where("id not in (?)", currentIds)
+            selectOptions = possibleUsers.map { |u| [u.email, u.id] }
+          %>
+
+          <%= form_for @share do |f| %>
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="shareModalLabel">Share with Collaborators</h4>
+            </div>
+            <div class="modal-body">
+              <p>
+                <i>Disclaimer: The data you are about to share is protected by HIPAA. Don't share this data without patient consent.</i>
+              </p>
              <%= f.hidden_field :handoff_id, :value => @handoff.id %>
              <p>
                <%= f.select :user_id, selectOptions %>
              </p>
-             <%= f.submit "Share Handoff", class: "btn btn-primary" %>
-           <% end %>
           </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          </div>
+            <div class="modal-footer">
+              <%= f.submit "Share Handoff", class: "btn btn-primary" %>
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+          <% end %>
         </div>
       </div>
     </div>

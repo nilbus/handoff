@@ -19,6 +19,6 @@ class HandoffsController < ApplicationController
   end
 
   def handoff_params
-    params.require(:handoff).permit(:creator_id, :patient_id)
+    params.require(:handoff).permit(:creator_id, :patient_id, :name)
   end
 end
