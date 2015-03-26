@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150326025424) do
+ActiveRecord::Schema.define(version: 20150326055921) do
 
   create_table "annotations", force: :cascade do |t|
     t.string   "resource_id"
@@ -26,9 +26,10 @@ ActiveRecord::Schema.define(version: 20150326025424) do
   create_table "handoffs", force: :cascade do |t|
     t.string   "patient_id"
     t.integer  "creator_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
     t.string   "name"
+    t.string   "description"
   end
 
   create_table "shares", force: :cascade do |t|
