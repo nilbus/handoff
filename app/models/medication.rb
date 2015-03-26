@@ -6,7 +6,7 @@ class Medication
     @value = value
     @status = status
     @prescriber = prescriber
-    @written_date = written_date
+    @written_date = written_date.to_datetime
     @dosage_value = dosage_value
     @dosage_units = dosage_units
     @dosage_text = dosage_text

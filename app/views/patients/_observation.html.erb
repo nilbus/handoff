@@ -1,14 +1,38 @@
+<% observation = observations[0] %>
 <div id="<%= observation.id %>" class="annotatable">
-  <%= render 'handoffs/annotate_button' %>
-  <strong><p><%=  observation.display.html_safe %></p></strong>
-  <p><%= "value: #{observation.value}:" %></p>
-  <p><%= "units: #{observation.units}:" %></p>
-  <p><%= "comment: #{observation.comment}:" %></p>
-  <p><%= "pub_date: #{observation.pub_date}:" %></p>
-  <p><%= "status: #{observation.status}:" %></p>
-  <p><%= "reliability: #{observation.reliability}:" %></p>
-  <p><%= "code_system: #{observation.code_system}:" %></p>
-  <p><%= "code: #{observation.code}:" %></p>
-  <p><%= "id: #{observation.id}:" %></p>
-  <br> </br>
+  <div class="well well-sm">
+    <%= render 'handoffs/annotate_button' %>
+
+    <% if observations.size > 0 %>
+    <button class="btn btn-default btn-annotate pull-right" title="View older observations">
+      <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
+    </button>
+    <% end %>
+
+    <button class="btn btn-default btn-annotate pull-right" title="View details">
+      <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+    </button>
+
+    <h4><%= observation.code_display %></h4>
+    <table class="table">
+      <tr>
+        <% if observation.value != nil %>
+        <th>Value</th>
+        <th>Units</th>
+        <% else %>
+        <th>Result</th>
+        <% end %>
+        <th>Date</th>
+      </tr>
+      <tr>
+        <% if observation.value != nil %>
+        <td><%= observation.value %></td>
+        <td><%= observation.units %></td>
+        <% else %>
+        <td><%= observation.display.html_safe %></td>
+        <% end %>
+        <td><%= observation.date.to_date %></td>
+      </tr>
+    </table>
+  </div>
 </div>

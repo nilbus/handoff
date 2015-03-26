@@ -46,13 +46,14 @@ class API
     this_value       = dig(observation_data, "content", "valueQuantity", "value")
     this_units       = dig(observation_data, "content", "valueQuantity", "units")
     this_comment     = dig(observation_data, "content", "comments")
-    this_pub_date    = dig(observation_data, "published")
+    this_date        = dig(observation_data, "content", "appliesDateTime")
     this_status      = dig(observation_data, "content", "status")
     this_reliability = dig(observation_data, "content", "reliability")
     this_code_system = dig(observation_data, "content", "name", "coding", "array", "system")
     this_code        = dig(observation_data, "content", "name", "coding", "array", "code")
+    this_code_text   = dig(observation_data, "content", "name", "coding", "array", "display")
     this_display     = dig(observation_data, "content", "text", "div")
-    Observation.new(this_display, this_id, this_value, this_units, this_comment, this_pub_date, this_status, this_reliability, this_code_system, this_code)
+    Observation.new(this_display, this_id, this_value, this_units, this_comment, this_date, this_status, this_reliability, this_code_system, this_code, this_code_text)
   end
 
   def self.update_patient_observations(patient)

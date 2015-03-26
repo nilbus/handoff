@@ -4,7 +4,7 @@ class Condition
   def initialize(id, value, onset_date, status, code_system, code)
     @id = id
     @value = value
-    @onset_date = onset_date
+    @onset_date = onset_date.to_datetime
     @status = status
     @code_system = code_system
     @code = code

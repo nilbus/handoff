@@ -30,8 +30,9 @@
         Observations
       </div>
       <div class="panel-body">
-        <% @patient_data.observations.each do |observation| %>
-          <%= render partial: "patients/observation", locals: {observation: observation} %>
+        <% groupedObservations = @patient_data.groupedAndSortedObservations
+           groupedObservations.keys.sort.each do |key| %>
+          <%= render partial: "patients/observation", locals: {observations: groupedObservations[key]} %>
         <% end %>
       </div>
     </div>
@@ -41,8 +42,8 @@
         Conditions
       </div>
       <div class="panel-body">
-        <% @patient_data.conditions.each do |condition| %>
-          <%= render partial: "patients/condition", locals: {condition: condition} %>
+        <% @patient_data.groupedAndSortedConditions.each do |key, conditions| %>
+          <%= render partial: "patients/condition", locals: {conditions: conditions} %>
         <% end %>
       </div>
     </div>
@@ -53,8 +54,8 @@
         Prescriptions
       </div>
       <div class="panel-body">
-        <% @patient_data.medications.each do |prescription| %>
-          <%= render partial: "patients/prescription", locals: {prescription: prescription} %>
+        <% @patient_data.groupedAndSortedMedications.each do |key, medications| %>
+          <%= render partial: "patients/prescription", locals: {prescriptions: medications} %>
         <% end %>
       </div>
     </div>

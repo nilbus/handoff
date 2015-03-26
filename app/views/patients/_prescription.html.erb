@@ -1,17 +1,32 @@
+<% prescription = prescriptions[0] %>
 <div id="<%= prescription.id %>" class="annotatable">
-  <%= render 'handoffs/annotate_button' %>
-  <strong><p><%= "value: #{prescription.value}:" %></p></strong>
-  <p><%= "id: #{prescription.id}:" %></p>
-  <p><%= "status: #{prescription.status}:" %></p>
-  <p><%= "prescriber: #{prescription.prescriber}:" %></p>
-  <p><%= "written_date: #{prescription.written_date}:" %></p>
-  <p><%= "dosage_value: #{prescription.dosage_value}:" %></p>
-  <p><%= "dosage_units: #{prescription.dosage_units}:" %></p>
-  <p><%= "dosage_text: #{prescription.dosage_text}:" %></p>
-  <p><%= "dispense_quantity: #{prescription.dispense_quantity}:" %></p>
-  <p><%= "dispense_repeats: #{prescription.dispense_repeats}:" %></p>
-  <p><%= "coding_system: #{prescription.coding_system}:" %></p>
-  <p><%= "code: #{prescription.code}:" %></p>
-  <br>
-</div>
+  <div class="well well-sm">
+    <%= render 'handoffs/annotate_button' %>
 
+    <% if prescriptions.size > 0 %>
+    <button class="btn btn-default btn-annotate pull-right" title="View older prescriptions">
+      <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
+    </button>
+    <% end %>
+
+    <button class="btn btn-default btn-annotate pull-right" title="View details">
+      <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+    </button>
+
+    <h4><%= prescription.value %></h4>
+    <table class="table">
+      <tr>
+        <th>Prescriber</th>
+        <th>Date</th>
+        <th>Dosage Value</th>
+        <th>Dosage Units</th>
+      </tr>
+      <tr>
+        <td><%= prescription.prescriber %></td>
+        <td><%= prescription.written_date.to_date %></td>
+        <td><%= prescription.dosage_value %></td>
+        <td><%= prescription.dosage_units %></td>
+      </tr>
+    </table>
+  </div>
+</div>

@@ -1,11 +1,30 @@
+<% condition = conditions[0] %>
 <div id="<%= condition.id %>" class="annotatable">
-  <%= render 'handoffs/annotate_button' %>
-  <strong><p><%= "value: #{condition.value}:" %></p></strong>
-  <p><%= "id: #{condition.id}:" %></p>
-  <p><%= "onset_date: #{condition.onset_date}:" %></p>
-  <p><%= "status: #{condition.status}:" %></p>
-  <p><%= "code_system: #{condition.code_system}:" %></p>
-  <p><%= "code: #{condition.code}:" %></p>
-  <br>
-</div>
+  <div class="well well-sm">
+    <%= render 'handoffs/annotate_button' %>
 
+    <% if conditions.size > 0 %>
+    <button class="btn btn-default btn-annotate pull-right" title="View prior occurrences of condition">
+      <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
+    </button>
+    <% end %>
+
+    <button class="btn btn-default btn-annotate pull-right" title="View details">
+      <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+    </button>
+
+    <h4><%= condition.value %></h4>
+    <table class="table">
+      <tr>
+        <th>Onset</th>
+        <th>Status</th>
+        <th>Code</th>
+      </tr>
+      <tr>
+        <td><%= condition.onset_date.to_date %></td>
+        <td><%= condition.status %></td>
+        <td><%= condition.code %></td>
+      </tr>
+    </table>
+  </div>
+</div>
