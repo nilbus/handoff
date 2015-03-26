@@ -31,7 +31,7 @@
         <% else %>
         <td><%= observation.display.html_safe %></td>
         <% end %>
-        <td><%= observation.date.to_date %></td>
+        <td><%= observation.date != nil ? observation.date.to_date : "" %></td>
       </tr>
     </table>
   </div>

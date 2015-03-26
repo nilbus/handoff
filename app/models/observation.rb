@@ -7,7 +7,7 @@ class Observation
     @value = value
     @units = units
     @comment = comment
-    @date = date.to_datetime
+    @date = date != nil ? date.to_datetime : nil
     @status = status
     @reliability = reliability
     @code_system = code_system

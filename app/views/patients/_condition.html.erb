@@ -21,7 +21,7 @@
         <th>Code</th>
       </tr>
       <tr>
-        <td><%= condition.onset_date.to_date %></td>
+        <td><%= condition.onset_date != nil ? condition.onset_date.to_date : "" %></td>
         <td><%= condition.status %></td>
         <td><%= condition.code %></td>
       </tr>
