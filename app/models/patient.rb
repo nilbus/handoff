@@ -6,6 +6,18 @@ class Patient
     def all
       API.all_patients
     end
+
+    def height
+      feet_array = [4,5,6]
+      inches_array = (0..11).to_a
+      height = "#{feet_array.sample} ft. #{inches_array.sample} inches"
+    end
+
+    def birthday
+      from = 0.0
+      to = Time.now
+      birthday = Time.at(from + rand * (to.to_f - from.to_f)).to_s.gsub(/\d{2}:\d{2}:\d{2} -\d{4}/, '').strip
+    end
   end
 
   def initialize(pid, fname = nil, lname = nil)

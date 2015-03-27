@@ -38,8 +38,8 @@
         <b> Name: </b><%= "#{@patient_data.full_name}" %>
         <br>
         <b> Weight: </b><%= "#{@patient_data.weight}"%> <br>
-        <b> Height: </b> <br>
-        <b> Age: </b> <br>
+        <b> Height: </b> <%= Patient.height %><br>
+        <b> Birthday: </b> <%= Patient.birthday %><br>
       </div>
     </div>
 
