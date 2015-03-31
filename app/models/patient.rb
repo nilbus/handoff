@@ -59,12 +59,10 @@ class Patient
   end
 
   def weight
-    if observations.map(&:comment).include?("Body Weight")
-      body_weight_observation = observations.select{|observation| observation.comment == "Body Weight"}
+    if observations.map(&:code_display).include?("Body Weight")
+      body_weight_observation = [observations.select{|observation| observation.code_display == "Body Weight"}].flatten.sort_by(&:date).last
       # binding.pry
-      weight = body_weight_observation.first.display.gsub(/[^\d,\.]/, '').to_i
-      weight = weight.to_s
-      weight += " kg"
+      weight = body_weight_observation.value.to_s + " " +body_weight_observation.units
     else
       weight = "N/A"
     end
