@@ -1,6 +1,5 @@
 class PatientsController < ApplicationController
   def index
-    # @dummy_patient = Patients.all.first
     @directory = Patient.all
   end
 
