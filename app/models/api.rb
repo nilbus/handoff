@@ -6,6 +6,7 @@ class API
   RPATH_MED_CONST = "MedicationPrescription/"
   RPATH_PARAMS_CONST = "?_format=json"
   RPATH_FOR_PATIENT_PREFIX_CONST = "&subject=Patient/"
+  RPATH_COUNT_100_CONST = "&_count=100"
 
 ### Patients
 
@@ -17,7 +18,7 @@ class API
   end
 
   def self.all_patients()
-    results = HTTParty.get("#{BASE_URL_CONST}#{RPATH_PAT_CONST}#{RPATH_PARAMS_CONST}")
+    results = HTTParty.get("#{BASE_URL_CONST}#{RPATH_PAT_CONST}#{RPATH_PARAMS_CONST}#{RPATH_COUNT_100_CONST}")
     results_hash = JSON.parse(results.body)
     patients = results_hash["entry"].map do |patient_data|
       get_patient_object_from_data(patient_data["content"])
