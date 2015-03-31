@@ -7,12 +7,6 @@ class Patient
       API.all_patients
     end
 
-    def height
-      feet_array = [4,5,6]
-      inches_array = (0..11).to_a
-      height = "#{feet_array.sample} ft. #{inches_array.sample} inches"
-    end
-
     def birthday
       from = 0.0
       to = Time.now
@@ -67,6 +61,24 @@ class Patient
       weight = "N/A"
     end
     weight
+  end
+
+  def height
+    if observations.map(&:code_display).include?("Body Height")
+      height_observation = [observations.select{|observation| observation.code_display == "Body Height"}].flatten.sort_by(&:date).last
+      height_number = height_observation.value
+        if height_observation.units == "in"
+          height_feet = (height_number / 12).floor 
+          height_inches = height_number % 12
+        else
+          height_feet = (height_number / 30).floor
+          height_inches = (height_number / 30 / 2.54).round
+        end
+      height = "#{height_feet} ft. #{height_inches} in." 
+    else
+      height = "N/A"
+    end
+    height
   end
 
   def conditions
