@@ -3,15 +3,11 @@
   <div class="well well-sm">
     <%= render 'handoffs/annotate_button' %>
 
-    <% if conditions.size > 0 %>
+    <% if conditions.size > 1 %>
     <button class="btn btn-default btn-annotate pull-right" title="View prior occurrences of condition">
       <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
     </button>
     <% end %>
-
-    <button class="btn btn-default btn-annotate pull-right" title="View details">
-      <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
-    </button>
 
     <h4><%= condition.value %></h4>
     <table class="table">

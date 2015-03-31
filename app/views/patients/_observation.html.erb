@@ -1,17 +1,21 @@
-<% observation = observations[0] %>
+<% 
+observation = observations[0] 
+
+historyId = "#{observation.code}History"
+
+if observations.size > 1
+  @datatableIds.push(historyId)  
+end
+%>
 <div id="<%= observation.id %>" class="annotatable">
   <div class="well well-sm">
     <%= render 'handoffs/annotate_button' %>
 
-    <% if observations.size > 0 %>
-    <button class="btn btn-default btn-annotate pull-right" title="View older observations">
+    <% if observations.size > 1 %>
+    <button class="btn btn-default btn-annotate pull-right" title="View older observations" data-toggle="modal" data-target="#<%= "#{historyId}Modal" %>">
       <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
     </button>
     <% end %>
-
-    <button class="btn btn-default btn-annotate pull-right" title="View details">
-      <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
-    </button>
 
     <h4><%= observation.code_display %></h4>
     <table class="table">
@@ -34,5 +38,43 @@
         <td><%= observation.date != nil ? observation.date.to_date : "" %></td>
       </tr>
     </table>
+  </div>
+  <div class="modal fade" id="<%= "#{historyId}Modal" %>" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+           <h4 class="modal-title"><%= observation.code_display %> History</h4>
+        </div>
+        <div class="modal-body">
+          <table id="<%= historyId %>" class="display">
+            <thead>
+              <tr>
+                <% if observation.value != nil %>
+                <th>Value</th>
+                <th>Units</th>
+                <% else %>
+                <th>Result</th>
+                <% end %>
+                <th>Date</th>
+              </tr>
+            </thead>
+            <tbody>
+            <% observations.each do |obs| %>
+              <tr>
+                <% if observation.value != nil %>
+                <td><%= obs.value %></td>
+                <td><%= obs.units %></td>
+                <% else %>
+                <td><%= obs.display.html_safe %></td>
+                <% end %>
+                <td><%= obs.date != nil ? obs.date.to_date : "" %></td>
+              </tr>
+            <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

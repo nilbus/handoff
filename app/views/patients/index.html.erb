@@ -1,6 +1,24 @@
 <div class="col-md-10 col-md-offset-1">
   <h1>Patients</h1>
-  <% @directory.each do |a_patient| %>
-    <p><%= link_to "#{a_patient.full_name}: (#{a_patient.pid})", "#{patients_path}/#{a_patient.pid}" %></p>
-  <% end %>
+  <table id="patients" class="display">
+    <thead>
+      <tr><th>Patient Name</th><th>Patient ID</th></tr>
+    </thead>
+    <tbody>
+    <% @directory.each do |a_patient| %>
+      <tr><td><%= link_to "#{a_patient.full_name}", "#{patients_path}/#{a_patient.pid}" %></td><td><%= a_patient.pid %></td></tr>
+    <% end %>
+    </tbody>
+  </table>
 </div>
+
+<% content_for :head do %>
+  <script type="text/javascript">
+$(document).ready(function() {
+    $('#patients').dataTable({
+      "bLengthChange": false,
+      "iDisplayLength": 50
+    });
+} );
+  </script>
+<% end %>

@@ -3,15 +3,11 @@
   <div class="well well-sm">
     <%= render 'handoffs/annotate_button' %>
 
-    <% if prescriptions.size > 0 %>
+    <% if prescriptions.size > 1 %>
     <button class="btn btn-default btn-annotate pull-right" title="View older prescriptions">
       <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
     </button>
     <% end %>
-
-    <button class="btn btn-default btn-annotate pull-right" title="View details">
-      <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
-    </button>
 
     <h4><%= prescription.value %></h4>
     <table class="table">
