@@ -8,9 +8,9 @@
         <li><a href="#handoff">Handoff</a></li>
         <% end %>
         <li><a href="#overview">Overview</a></li>
-        <li><a href="#observations">Observations</a></li>
         <li><a href="#conditions">Conditions</a></li>
         <li><a href="#prescriptions">Prescriptions</a></li>
+        <li><a href="#observations">Observations</a></li>
       </ul>
     </div>
   </div>
@@ -42,18 +42,6 @@
       </div>
     </div>
 
-    <a class="anchor" name="observations"></a>
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        Observations
-      </div>
-      <div class="panel-body">
-        <% groupedObservations = @patient_data.groupedAndSortedObservations
-           groupedObservations.keys.sort.each do |key| %>
-          <%= render partial: "patients/observation", locals: {observations: groupedObservations[key]} %>
-        <% end %>
-      </div>
-    </div>
     <a class="anchor" name="conditions"></a>
     <div class="panel panel-default">
       <div class="panel-heading">
@@ -74,6 +62,19 @@
       <div class="panel-body">
         <% @patient_data.groupedAndSortedMedications.each do |key, medications| %>
           <%= render partial: "patients/prescription", locals: {prescriptions: medications} %>
+        <% end %>
+      </div>
+    </div>
+
+    <a class="anchor" name="observations"></a>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        Observations
+      </div>
+      <div class="panel-body">
+        <% groupedObservations = @patient_data.groupedAndSortedObservations
+           groupedObservations.keys.sort.each do |key| %>
+          <%= render partial: "patients/observation", locals: {observations: groupedObservations[key]} %>
         <% end %>
       </div>
     </div>
