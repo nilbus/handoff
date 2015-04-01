@@ -19,3 +19,14 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 @import "jquery.dataTables";
+
+.fixed {
+  position: fixed;
+}
+
+.modal-dialog{
+  width: 800px
+}
+.modal-backdrop {
+  opacity:0.5 !important;
+}
