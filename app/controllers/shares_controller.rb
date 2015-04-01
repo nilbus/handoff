@@ -13,7 +13,7 @@ class SharesController < ApplicationController
   end
 
   def share_params
-    # TODO we don't actually insure that the person creating the share has access to the handoff!
+    # TODO we don't actually ensure that the person creating the share has access to the handoff!
     params.require(:share).permit(:handoff_id, :user_id)
   end
 end
