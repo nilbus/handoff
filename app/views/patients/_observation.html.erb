@@ -1,7 +1,7 @@
 <% 
 observation = observations[0] 
 
-historyId = "#{observation.code}History"
+historyId = SecureRandom.uuid
 
 if observations.size > 1
   @datatableIds.push(historyId)  

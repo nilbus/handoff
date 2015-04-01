@@ -1,10 +1,19 @@
-<% condition = conditions[0] %>
+<%
+condition = conditions[0]
+
+historyId = SecureRandom.uuid
+
+if conditions.size > 1
+  @datatableIds.push(historyId)
+end
+%>
+
 <div id="<%= condition.id %>" class="annotatable">
   <div class="well well-sm">
     <%= render 'handoffs/annotate_button' %>
 
     <% if conditions.size > 1 %>
-    <button class="btn btn-default btn-annotate pull-right" title="View prior occurrences of condition">
+    <button class="btn btn-default btn-annotate pull-right" title="View prior occurrences of condition" data-toggle="modal" data-target="#<%= "#{historyId}Modal" %>">
       <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
     </button>
     <% end %>
@@ -23,4 +32,35 @@
       </tr>
     </table>
   </div>
+  <div class="modal fade" id="<%= "#{historyId}Modal" %>" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+           <h4 class="modal-title"><%= condition.value %> History</h4>
+        </div>
+        <div class="modal-body">
+          <table id="<%= historyId %>" class="display">
+            <thead>
+              <tr>
+                <th>Onset</th>
+                <th>Status</th>
+                <th>Code</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% conditions.each do |c| %>
+                <tr>
+                  <td><%= c.onset_date != nil ? c.onset_date.to_date : "" %></td>
+                  <td><%= c.status %></td>
+                  <td><%= c.code %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </div>
