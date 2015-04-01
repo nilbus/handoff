@@ -1,10 +1,19 @@
-<% prescription = prescriptions[0] %>
+<%
+prescription = prescriptions[0]
+
+historyId = SecureRandom.uuid
+
+if prescriptions.size > 1
+  @datatableIds.push(historyId)
+end
+%>
+
 <div id="<%= prescription.id %>" class="annotatable">
   <div class="well well-sm">
     <%= render 'handoffs/annotate_button' %>
 
     <% if prescriptions.size > 1 %>
-    <button class="btn btn-default btn-annotate pull-right" title="View older prescriptions">
+    <button class="btn btn-default btn-annotate pull-right" title="View older prescriptions" data-toggle="modal" data-target="#<%= "#{historyId}Modal" %>">
       <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
     </button>
     <% end %>
@@ -25,4 +34,37 @@
       </tr>
     </table>
   </div>
+  <div class="modal fade" id="<%= "#{historyId}Modal" %>" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+           <h4 class="modal-title"><%= prescription.value %> History</h4>
+        </div>
+        <div class="modal-body">
+          <table id="<%= historyId %>" class="display">
+            <thead>
+              <tr>
+                <th>Prescriber</th>
+                <th>Date</th>
+                <th>Dosage Value</th>
+                <th>Dosage Units</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% prescriptions.each do |pre| %>
+                <tr>
+                  <td><%= pre.prescriber %></td>
+                  <td><%= pre.written_date != nil ? pre.written_date.to_date : "" %></td>
+                  <td><%= pre.dosage_value %></td>
+                  <td><%= pre.dosage_units %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </div>
