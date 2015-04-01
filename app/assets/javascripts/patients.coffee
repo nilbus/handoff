@@ -17,7 +17,7 @@ class AnnotationRenderer
 
   renderAnnotation: (annotation) ->
     $annotationContainer = $('.annotations')
-    $annotatable = $(".annotatable##{annotation.id}")
+    $annotatable = $(document.getElementById(annotation.id)).closest('.annotatable')
     return if $annotatable.size() == 0
     yPosition = $annotatable.position().top
     $element = $("
