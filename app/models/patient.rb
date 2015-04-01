@@ -9,12 +9,6 @@ class Patient
     def all
       API.all_patients
     end
-
-    def birthday
-      from = 0.0
-      to = Time.now
-      birthday = Time.at(from + rand * (to.to_f - from.to_f)).to_s.gsub(/\d{2}:\d{2}:\d{2} -\d{4}/, '').strip
-    end
   end
 
   def initialize(pid, fname = nil, lname = nil)
