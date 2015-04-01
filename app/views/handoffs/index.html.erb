@@ -1,6 +1,6 @@
 <div class="col-md-10 col-md-offset-1">
   <h1>My Handoffs</h1>
   <% @handoffs.each do |handoff| %>
-  <p><%= link_to handoff.name, "#{handoffs_path}/#{handoff.id}" %></p>
+  <p><%= link_to handoff.name, handoff %></p>
   <% end %>
 </div>

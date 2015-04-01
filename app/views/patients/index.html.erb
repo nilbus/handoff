@@ -6,7 +6,7 @@
     </thead>
     <tbody>
     <% @directory.each do |a_patient| %>
-      <tr><td><%= link_to "#{a_patient.full_name}", "#{patients_path}/#{a_patient.pid}" %></td><td><%= a_patient.pid %></td></tr>
+      <tr><td><%= link_to a_patient.full_name, patient_path(a_patient) %></td><td><%= a_patient.pid %></td></tr>
     <% end %>
     </tbody>
   </table>

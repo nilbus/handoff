@@ -1,6 +1,9 @@
 class Patient
+  include ActiveModel::Model
+
   attr_accessor :fname, :lname, :pid, :fhir, :observations
   attr_writer :conditions, :medications
+  alias :to_param :pid
 
   class << self
     def all
