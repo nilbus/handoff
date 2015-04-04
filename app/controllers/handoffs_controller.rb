@@ -5,6 +5,7 @@ class HandoffsController < ApplicationController
 
   def show
     @handoff = Handoff.find(params[:id])
+    @annotations_by_resource = @handoff.annotations.sequential.group_by(&:resource_id)
     @patient_data = Patient.new(@handoff.patient_id)
   end
 
