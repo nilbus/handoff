@@ -2,8 +2,10 @@
 <div class="row">
   <div class="col-md-2 col-md-offset-1 fixed">
     <div class="well">
-      <h3><%= @patient_data.full_name %></h3>
-      <ul class="nav nav-pills nav-stacked">
+      <div class="text-center">
+        <h3><%= @patient_data.full_name %></h3>
+      </div>
+      <ul class="nav nav-pills nav-stacked patient-nav">
         <% if @handoff %>
         <li><a href="#handoff">Handoff</a></li>
         <% end %>
@@ -12,6 +14,16 @@
         <li><a href="#prescriptions">Prescriptions</a></li>
         <li><a href="#observations">Observations</a></li>
       </ul>
+      <hr>
+      <% if !@handoff %>
+        <button type="button" class="btn btn-primary btn-default btn-block" data-toggle="modal" data-target="#handoffModal">
+          Create Handoff!
+        </button>
+      <% else %>
+        <button type="button" class="btn btn-primary btn-default btn-block" data-toggle="modal" data-target="#shareModal">
+          Sharing
+        </button>
+      <% end %>
     </div>
   </div>
   <div class="col-md-6 col-md-offset-3">
@@ -81,84 +93,75 @@
 
   </div>
   <div class="col-md-3 col-md-offset-9 annotations">
-    <% if !@handoff %>
-    <button type="button" class="btn btn-primary btn-lg fixed" data-toggle="modal" data-target="#handoffModal">
-      Create Handoff!
-    </button>
-
-    <!-- Modal -->
-    <div class="modal fade" id="handoffModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <% @handoff = Handoff.new() %>
-          <%= form_for @handoff do |f| %>
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title" id="handoffModalLabel">Create Handoff for <%= "#{@patient_data.full_name}"%></h4>
-            </div>
-            <div class="modal-body">
-              <table class="table">
-                <tr>
-                  <td><%= f.label :name %></td>
-                  <td><%= f.text_field :name, :value => "#{@patient_data.full_name} - #{DateTime.now.to_date}", :size => 40 %></td>
-                </tr>
-                <tr>
-                  <td><%= f.label :description %></td>
-                  <td><%= f.text_area  :description, :size => "40x5" %></td>
-                </tr>
-              </table>
-              <%= f.hidden_field :creator_id, :value => current_user.id %>
-              <%= f.hidden_field :patient_id, :value => @patient_data.pid %>
-            </div>
-            <div class="modal-footer">
-              <%= f.submit "Create Handoff", class: "btn btn-primary" %>
-              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
-          <% end %>
-        </div>
-      </div>
-    </div>
-    <% else %>
-    <button type="button" class="btn btn-primary btn-lg fixed" data-toggle="modal" data-target="#shareModal">
-      Share
-    </button>
-
-    <div class="modal fade" id="shareModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <%
-            @share  = Share.new()
-            currentIds = @handoff.shares.map { |s| s.user_id }
-            possibleUsers = User.where("id not in (?)", currentIds)
-            selectOptions = possibleUsers.map { |u| [u.email, u.id] }
-          %>
-
-          <%= form_for @share do |f| %>
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title" id="shareModalLabel">Share with Collaborators</h4>
-            </div>
-            <div class="modal-body">
-              <p>
-                <i>Disclaimer: The data you are about to share is protected by HIPAA. Don't share this data without patient consent.</i>
-              </p>
-             <%= f.hidden_field :handoff_id, :value => @handoff.id %>
-             <p>
-               <%= f.select :user_id, selectOptions %>
-             </p>
-          </div>
-            <div class="modal-footer">
-              <%= f.submit "Share Handoff", class: "btn btn-primary" %>
-              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
-          <% end %>
-        </div>
-      </div>
-    </div>
-
-    <% end %>
   </div>
 </div>
+
+<% if !@handoff %>
+  <div class="modal fade" id="handoffModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <% @newHandoff = Handoff.new() %>
+        <%= form_for @newHandoff do |f| %>
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="handoffModalLabel">Create Handoff for <%= "#{@patient_data.full_name}"%></h4>
+          </div>
+          <div class="modal-body">
+            <table class="table">
+              <tr>
+                <td><%= f.label :name %></td>
+                <td><%= f.text_field :name, :value => "#{@patient_data.full_name} - #{DateTime.now.to_date}", :size => 40 %></td>
+              </tr>
+              <tr>
+                <td><%= f.label :description %></td>
+                <td><%= f.text_area  :description, :size => "40x5" %></td>
+              </tr>
+            </table>
+            <%= f.hidden_field :creator_id, :value => current_user.id %>
+            <%= f.hidden_field :patient_id, :value => @patient_data.pid %>
+          </div>
+          <div class="modal-footer">
+            <%= f.submit "Create Handoff", class: "btn btn-primary" %>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <% else %>
+  <div class="modal fade" id="shareModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <%
+          @share  = Share.new()
+          currentIds = @handoff.shares.map { |s| s.user_id }
+          possibleUsers = User.where("id not in (?)", currentIds)
+          selectOptions = possibleUsers.map { |u| [u.email, u.id] }
+        %>
+
+        <%= form_for @share do |f| %>
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="shareModalLabel">Share with Collaborators</h4>
+          </div>
+          <div class="modal-body">
+            <p>
+              <i>Disclaimer: The data you are about to share is protected by HIPAA. Don't share this data without patient consent.</i>
+            </p>
+           <%= f.hidden_field :handoff_id, :value => @handoff.id %>
+           <p>
+             <%= f.select :user_id, selectOptions %>
+           </p>
+        </div>
+          <div class="modal-footer">
+            <%= f.submit "Share Handoff", class: "btn btn-primary" %>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>
 
 <% content_for :body_end do %>
   <script type="text/javascript">
@@ -170,7 +173,7 @@
       "iDisplayLength": 50
     });
 } );
-   
+
   <% end %>
   </script>
 <% end %>
