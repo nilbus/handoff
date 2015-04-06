@@ -11,16 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150326055921) do
+ActiveRecord::Schema.define(version: 20150404185831) do
 
   create_table "annotations", force: :cascade do |t|
     t.string   "resource_id"
-    t.integer  "parent_id"
-    t.integer  "type"
+    t.string   "type"
     t.text     "content"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.integer  "handoff_id"
+    t.integer  "author_id"
   end
 
   create_table "handoffs", force: :cascade do |t|

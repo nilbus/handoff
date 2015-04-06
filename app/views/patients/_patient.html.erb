@@ -92,7 +92,8 @@
     </div>
 
   </div>
-  <div class="col-md-3 col-md-offset-9 annotations">
+  <div class="col-md-3">
+    <%= render 'annotations' if @handoff %>
   </div>
 </div>
 
@@ -128,7 +129,7 @@
       </div>
     </div>
   </div>
-  <% else %>
+<% else %>
   <div class="modal fade" id="shareModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">

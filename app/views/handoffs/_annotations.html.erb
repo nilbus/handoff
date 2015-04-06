@@ -1,0 +1,26 @@
+<% fail 'Rendered handoffs/_annotations without @annotations_by_resource' if @annotations_by_resource.nil? %>
+<div class="annotations" style="display: none;">
+  <% @annotations_by_resource.merge(annotation_template).each do |id, annotations| %>
+    <div class="annotations-for-id panel panel-default" data-id="<%= id %>">
+      <% annotations.each do |annotation| %>
+        <div class="panel-heading author"><%= annotation.author_name %></div>
+        <div class="panel-body annotation">
+          <div class="annotation-content">
+            <%= raw annotation.html %>
+          </div>
+        </div>
+      <% end %>
+      <div class="panel-body reply">
+        <%= form_for Annotation.new do |f| %>
+          <div class="reply-content" style="display: none;">
+            <%= f.text_area :content, rows: 3, class: 'form-control' %>
+          </div>
+          <%= f.hidden_field :type, value: 'Comment' %>
+          <%= f.hidden_field :handoff_id, value: @handoff.id %>
+          <%= f.hidden_field :resource_id, value: id, class: 'resource-id' %>
+          <button type="submit" class="btn btn-default btn-xs btn-reply">reply</button>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>
