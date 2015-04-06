@@ -1,11 +1,12 @@
 class AnnotationRenderer
   constructor: ->
-    @hideTemplates()
+    @showAnnotations()
     @initializeEvents()
     @positionAnnotations()
 
-  hideTemplates: ->
+  showAnnotations: ->
     @annotationsTemplate().hide()
+    $('.annotations').show()
 
   initializeEvents: ->
     $(document).on 'click', '.btn-annotate', (event) =>
