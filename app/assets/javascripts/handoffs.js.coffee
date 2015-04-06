@@ -26,6 +26,7 @@ class AnnotationRenderer
   createAnnotationsContainer: (id) ->
     annotationsContainer = @annotationsTemplate().clone()
     annotationsContainer.attr('data-id', id)
+    annotationsContainer.find('.resource-id').val(id)
     annotationsContainer.find('.annotation').remove()
     annotationsContainer.show()
     $('.annotations').append annotationsContainer
