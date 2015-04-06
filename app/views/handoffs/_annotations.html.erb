@@ -1,0 +1,18 @@
+<% fail 'Rendered handoffs/_annotations without @annotations_by_resource' if @annotations_by_resource.nil? %>
+<div class="annotations">
+  <% @annotations_by_resource.each do |id, annotations| %>
+    <div class="annotations-for-id" data-id="<%= id %>">
+      <% annotations.each do |annotation| %>
+        <div class="annotation panel panel-default">
+          <div class="panel-heading"><%= annotation.author_name %></div>
+          <div class="panel-body">
+            <div class="annotation-content">
+              <%= raw annotation.html %>
+            </div>
+            <button class="btn btn-default btn-xs">reply</button>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>
