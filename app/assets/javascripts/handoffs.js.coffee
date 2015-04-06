@@ -12,8 +12,7 @@ class AnnotationRenderer
       id = $(event.target).closest('.annotatable').attr('id')
       @showAnnotateFormFor(id)
     $('.annotations').on 'click', '.btn-reply', (event) =>
-      id = $(event.target).closest('.annotations-for-id ').data('id')
-      @showReplyContentFor(id)
+      @handleReplyClick(event)
 
   showAnnotateFormFor: (id) ->
     @createAnnotationsContainer(id) unless @annotationsContainerFor(id).length
@@ -31,10 +30,22 @@ class AnnotationRenderer
     $('.annotations').append annotationsContainer
     @positionAnnotations()
 
+  handleReplyClick: (event) ->
+    button = $(event.target)
+    replyVisible = button.closest('.reply').find('.reply-content').is(':visible')
+    if replyVisible
+      # submit form
+    else
+      event.preventDefault()
+      id = button.closest('.annotations-for-id').data('id')
+      @showReplyContentFor(id)
+
   showReplyContentFor: (id) ->
     annotationsContainer = @annotationsContainerFor(id)
-    annotationsContainer.find('.reply-content').show()
-      .find('textarea').focus()
+    annotationsContainer.find('.btn-reply').removeClass('btn-default').addClass('btn-success')
+    replyContent = annotationsContainer.find('.reply-content')
+    replyContent.show()
+    replyContent.find('textarea').focus()
 
   annotationsTemplate: ->
     $('.annotations-for-id[data-id=template]')
