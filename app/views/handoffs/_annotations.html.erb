@@ -1,18 +1,23 @@
 <% fail 'Rendered handoffs/_annotations without @annotations_by_resource' if @annotations_by_resource.nil? %>
 <div class="annotations">
-  <% @annotations_by_resource.each do |id, annotations| %>
-    <div class="annotations-for-id" data-id="<%= id %>">
+  <% @annotations_by_resource.merge(annotation_template).each do |id, annotations| %>
+    <div class="annotations-for-id panel panel-default" data-id="<%= id %>">
       <% annotations.each do |annotation| %>
-        <div class="annotation panel panel-default">
-          <div class="panel-heading"><%= annotation.author_name %></div>
-          <div class="panel-body">
-            <div class="annotation-content">
-              <%= raw annotation.html %>
-            </div>
-            <button class="btn btn-default btn-xs">reply</button>
+        <div class="panel-heading author"><%= annotation.author_name %></div>
+        <div class="panel-body annotation">
+          <div class="annotation-content">
+            <%= raw annotation.html %>
           </div>
         </div>
       <% end %>
+      <div class="panel-body reply">
+        <%= form_for Annotation.new do |f| %>
+          <div class="reply-content" style="display: none;">
+            <textarea class="form-control" rows="3"></textarea>
+          </div>
+          <button class="btn btn-default btn-xs btn-reply">reply</button>
+        <% end %>
+      </div>
     </div>
   <% end %>
 </div>
