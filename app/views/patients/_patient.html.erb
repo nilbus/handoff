@@ -31,12 +31,13 @@
     <a class="anchor" name="handoff"></a>
     <div class="panel panel-default">
       <div class="panel-heading">
-        Handoff
+        <%= @patient_data.fname %>'s Handoffs
       </div>
       <div class="panel-body">
         <table>
           <tr><td><strong>Name:</strong></td><td><%= @handoff.name %></td></tr>
           <tr><td><strong>Description:</strong></td><td><%= @handoff.description %></td></tr>
+          
         </table>
       </div>
     </div>
