@@ -10,12 +10,6 @@ class AnnotationsController < ApplicationController
     end
   end
 
-  def update
-  end
-
-  def destroy
-  end
-
   private
 
   def annotation_params
