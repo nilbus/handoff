@@ -2,6 +2,7 @@
 <div class="annotations" style="display: none;">
   <% @annotations_by_resource.merge(annotation_template).each do |id, annotations| %>
     <div class="annotations-for-id panel panel-info" data-id="<%= id %>">
+      <%= icon 'caret-left', '', class: 'annotation-pointer' %>
       <% annotations.each do |annotation| %>
         <div class="panel-heading author"><%= annotation.author_name %></div>
         <div class="panel-body annotation">

@@ -9,3 +9,11 @@
 .raised {
   z-index: 2;
 }
+
+.annotation-pointer {
+  position: absolute;
+  font-size: 30px;
+  left: -11px;
+  top: 5px;
+  color: $panel-info-border;
+}
