@@ -32,19 +32,52 @@ class AnnotationRenderer
     annotationsContainer.attr('data-id', id)
     annotationsContainer.find('.resource-id').val(id)
     annotationsContainer.find('.annotation').remove()
+    annotationsContainer.find('.author').addClass('template-temporary')
     annotationsContainer.show()
     $('.annotations').append annotationsContainer
     @positionAnnotations()
 
   handleReplyClick: (event) ->
+    event.preventDefault()
     button = $(event.target)
     replyVisible = button.closest('.reply').find('.reply-content').is(':visible')
     if replyVisible
-      # submit form
+      @ajaxReply(event)
     else
-      event.preventDefault()
       id = button.closest('.annotations-for-id').data('id')
       @showReplyContentFor(id)
+
+  ajaxReply: (event) ->
+    button = $(event.target)
+    buttonPriorText = button.text()
+    button.prop 'disabled', true
+    button.text 'loading…'
+    @submitForm button.closest('form'), (response) =>
+      button.text buttonPriorText
+      button.prop 'disabled', false
+      replyBox = button.closest('.reply')
+      if response
+        @renderAnnotationResponse(replyBox, response)
+        @resetReplyForm(replyBox)
+
+  renderAnnotationResponse: (insertBefore, response) ->
+    insertBefore.closest('.annotations-for-id').find('.template-temporary').remove()
+    insertBefore.before($(response))
+
+  resetReplyForm: (replyBox) ->
+    replyBox.find('textarea').val('')
+    replyBox.find('.btn-reply').removeClass('btn-success').addClass('btn-default')
+    replyBox.find('.reply-content').hide()
+
+  submitForm: (form, onComplete) ->
+    $.ajax
+      url: form.attr('action')
+      type: 'POST'
+      data: form.serialize()
+      success: onComplete
+      error: ->
+        alert "There was an error submitting that. Maybe try again?"
+        onComplete()
 
   showReplyContentFor: (id) ->
     annotationsContainer = @annotationsContainerFor(id)

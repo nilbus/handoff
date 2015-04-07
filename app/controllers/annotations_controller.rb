@@ -3,8 +3,10 @@ class AnnotationsController < ApplicationController
     @annotation = Annotation.new(annotation_params)
     @annotation.author = current_user
     @annotation.save!
-    respond_to do |format|
-      format.html { redirect_to handoff_path(@annotation.handoff) }
+    if request.xhr?
+      render partial: 'handoffs/annotation', object: @annotation
+    else
+      redirect_to handoff_path(@annotation.handoff)
     end
   end
 
