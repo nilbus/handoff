@@ -53,20 +53,12 @@ class AnnotationRenderer
     $('.annotations-for-id[data-id=template]')
 
   positionAnnotations: ->
-    # $annotationContainer = $('.annotations')
-    # $annotatable = $(document.getElementById(annotation.id)).closest('.annotatable')
-    # return if $annotatable.size() == 0
-    # yPosition = $annotatable.position().top
-    # $element = $("
-    #   <div class='annotation panel panel-default'>
-    #     <div class='panel-heading'>#{annotation.author.name}</div>
-    #     <div class='panel-body'>
-    #       #{annotation.html}
-    #       <a href=''>reply</a>
-    #     </div>
-    #   </div>
-    # ")
-    # $annotationContainer.append $element
-    # $element.css position: 'absolute', top: yPosition
+    annotationGroups = $('.annotations-for-id')
+    annotationGroups.each ->
+      annotationGroup = $(this)
+      annotatable = $(document.getElementById(annotationGroup.data('id'))).closest('.annotatable')
+      return unless annotatable.length
+      yPosition = annotatable.position().top
+      annotationGroup.css position: 'absolute', top: yPosition
 
 new AnnotationRenderer()
