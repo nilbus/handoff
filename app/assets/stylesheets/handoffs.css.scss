@@ -17,3 +17,7 @@
   top: 5px;
   color: $panel-info-border;
 }
+
+.annotations-for-id .panel-body {
+  background-color: lighten($panel-info-heading-bg, 7%);
+}
