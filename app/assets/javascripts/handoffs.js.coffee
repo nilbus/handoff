@@ -42,7 +42,7 @@ class AnnotationRenderer
     button = $(event.target)
     replyVisible = button.closest('.reply').find('.reply-content').is(':visible')
     if replyVisible
-      @ajaxReply(event)
+      @ajaxReply(event) if @readyToSubmit(button)
     else
       id = button.closest('.annotations-for-id').data('id')
       @showReplyContentFor(id)
@@ -85,6 +85,12 @@ class AnnotationRenderer
     replyContent = annotationsContainer.find('.reply-content')
     replyContent.show()
     replyContent.find('textarea').focus()
+
+  readyToSubmit: (button) ->
+    # Assume comment, for now
+    commentText = button.closest('.reply').find('textarea')
+    notBlank = commentText.val().replace(/\s+/g, '').length > 0
+    notBlank
 
   annotationsTemplate: ->
     $('.annotations-for-id[data-id=template]')
