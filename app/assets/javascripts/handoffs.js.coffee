@@ -14,6 +14,11 @@ class AnnotationRenderer
       @showAnnotateFormFor(id)
     $('.annotations').on 'click', '.btn-reply', (event) =>
       @handleReplyClick(event)
+    debugger
+    $('.annotations').on 'focus', '.annotations-for-id :input', (event) =>
+      $(event.target).closest('.annotations-for-id').addClass('raised')
+    $('.annotations').on 'blur', '.annotations-for-id :input', (event) =>
+      $(event.target).closest('.annotations-for-id').removeClass('raised')
 
   showAnnotateFormFor: (id) ->
     @createAnnotationsContainer(id) unless @annotationsContainerFor(id).length
