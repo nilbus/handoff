@@ -1,3 +1,7 @@
 .annotations-for-id {
   box-shadow: white 0px 0px 20px 15px;
 }
+
+.annotations-for-id:hover {
+  z-index: 1;
+}
