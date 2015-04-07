@@ -103,5 +103,8 @@ class AnnotationRenderer
       return unless annotatable.length
       yPosition = annotatable.position().top
       annotationGroup.css position: 'absolute', top: yPosition
+    groupsSortedVertically = annotationGroups.sort (a, b) ->
+      if $(a).css('top') > $(b).css('top') then 1 else -1
+    $('.annotations').append(groupsSortedVertically)
 
 new AnnotationRenderer()
