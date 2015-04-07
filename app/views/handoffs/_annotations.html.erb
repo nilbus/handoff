@@ -1,7 +1,7 @@
 <% fail 'Rendered handoffs/_annotations without @annotations_by_resource' if @annotations_by_resource.nil? %>
 <div class="annotations" style="display: none;">
   <% @annotations_by_resource.merge(annotation_template).each do |id, annotations| %>
-    <div class="annotations-for-id panel panel-default" data-id="<%= id %>">
+    <div class="annotations-for-id panel panel-info" data-id="<%= id %>">
       <% annotations.each do |annotation| %>
         <div class="panel-heading author"><%= annotation.author_name %></div>
         <div class="panel-body annotation">
