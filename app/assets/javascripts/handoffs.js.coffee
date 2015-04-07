@@ -1,5 +1,6 @@
 class AnnotationRenderer
   constructor: ->
+    @relativeizeTimes()
     @showAnnotations()
     @initializeEvents()
     @positionAnnotations()
@@ -63,6 +64,7 @@ class AnnotationRenderer
   renderAnnotationResponse: (insertBefore, response) ->
     insertBefore.closest('.annotations-for-id').find('.template-temporary').remove()
     insertBefore.before($(response))
+    @relativeizeTimes()
 
   resetReplyForm: (replyBox) ->
     replyBox.find('textarea').val('')
@@ -106,5 +108,15 @@ class AnnotationRenderer
     groupsSortedVertically = annotationGroups.sort (a, b) ->
       if $(a).css('top') > $(b).css('top') then 1 else -1
     $('.annotations').append(groupsSortedVertically)
+
+  relativeizeTimes: ->
+    $('.relative-time').each ->
+      element = $(this)
+      return if element.data('relativized')
+      dateTime = element.text()
+      relativeTime = moment(dateTime).fromNow()
+      element.data('relativized', true)
+      element.text(relativeTime)
+      element.attr('title', dateTime)
 
 new AnnotationRenderer()

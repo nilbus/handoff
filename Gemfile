@@ -30,6 +30,7 @@ gem 'turbolinks'
 gem 'devise'
 gem 'httparty'
 gem 'font-awesome-sass'
+gem 'momentjs-rails'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

@@ -1,4 +1,9 @@
-<div class="panel-heading author"><%= annotation.author_name %></div>
+<div class="panel-heading author">
+  <%= annotation.author_name %>
+  <% unless annotation.template? %>
+    (<span class="relative-time"><%= annotation.created_at.to_formatted_s(:rfc822) %></span>)
+  <% end %>
+</div>
 <div class="panel-body annotation">
   <div class="annotation-content">
     <%= raw annotation.html %>

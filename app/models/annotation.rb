@@ -7,4 +7,8 @@ class Annotation < ActiveRecord::Base
   def author_name
     author.name
   end
+
+  def template?
+    resource_id.nil?
+  end
 end
