@@ -1,29 +1,46 @@
 <div class="col-md-10 col-md-offset-1">
-<div class="well">
-<h3>About Handoff</h3>
-<h4>Overview</h4>
-<p>
-Handoff is a platform for next generation care coordination. With Handoff, 
-providers can collaboratively annotate FHIR-accessible electronic medical
-records to insure efficient and continuous care. Handoff is meant to 
-supplant the phone calls, texts and other forms of informal communication
-that are essential to care coordination but largely overlooked by 
-contemporary EHR systems.
-</p>
-<h4>How it Works</h4>
-<p>
-Handoff allows users to fetch external FHIR records and then annotate them.
-The resultant annotated record is called a 'handoff' and the user is able
-to share the handoff with other providers, who may also contribute to the
-annotations and discussion.
-</p>
-<p>
-Handoff doesn't store FHIR records locally. Instead, handoffs 
-refer to external FHIR records. When a provider views a handoff, the FHIR
-record is fetched from the external source and then combined with the locally
-stored annotations. Handoff annotations do not become a permanent part of 
-the FHIR-accessible. They are intended to be relatively transient 
-communications that expire after a period of inactivity by all collaboraters.
-</p>
-</div>
+  <div class="well">
+	<h3>About Handoff</h3>
+	  <h4>Overview</h4>
+		<p>
+		  Handoff is a platform for next generation care coordination. Using Handoff,
+		  providers can collaboratively annotate electronic medical records
+		  to ensure efficient and continuous care. Handoff is meant to free care
+		  providers from the phone calls, texts, and other forms of informal communication
+		  that are currently used to facilitate care coordination.
+		</p>
+		
+	  <h4>How it Works</h4>
+		<p>
+		  Handoff allows users to view and annotate patient records that are formatted
+		  with <a href="http://hl7.org/fhir/">HL7's FHIR API</a>.
+		  The resulting annotated record is called a 'handoff' and the user is able
+		  to share the handoff with other providers, who may also contribute to the
+		  annotations and discussion.
+		</p>
+		
+		<p>
+		  To preserve the security and privacy of patient records, Handoff does not
+		  store medical records locally. Instead, Handoff fetches the external FHIR
+		  record and then combines the record with the locally stored annotations.
+		  In this way, annotations made in Handoff never become a permanent part of 
+		  the FHIR-accessible patient record. Each handoff stores transient 
+		  communication that expires after a period of inactivity by all collaboraters.
+		</p>
+		
+	  <h4>Why Handoff?</h4>
+		<p>
+		  Why not call, text, or dictate a message to my colleageus instead? Calling
+		  your colleague requires coordination that is rarely possible during the
+		  medical professional's work schedule. Additonally, listening and
+		  responding to voice mails is unorganized and time-consuming. Text messages
+		  can violate patient privacy, and even secure text messaging comes with
+		  little context within a patient's care plan. Finally, dictations provide
+		  multiple layers of transcribing and delivery that take hours or days to
+		  reach the intended recipient. With Handoff, communication is instantaneous
+		  yet unobtrusive; annotations are linked to the source of information (the
+		  patient's medical record), and communication will <i>never</i> become part
+		  of the patient's medical record.
+		</p>
+  </div>
 </div>
