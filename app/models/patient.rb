@@ -11,6 +11,7 @@ class Patient
     end
   end
 
+
   def initialize(pid, fname = nil, lname = nil)
     @pid = pid
     @fname = fname
@@ -59,6 +60,14 @@ class Patient
     weight
   end
 
+  def birthday
+    from = 0.0
+    to = Time.now
+    random_number = Random.new(@pid.gsub('.', '').gsub('-', '').to_i).rand
+    # binding.pry
+    Time.at(from + random_number * (to.to_f - from.to_f)).to_s.gsub(/\d{2}:\d{2}:\d{2} -\d{4}/, '').strip
+  end
+
   def height
     if observations.map(&:code_display).include?("Body Height")
       height_observation = [observations.select{|observation| observation.code_display == "Body Height"}].flatten.sort_by(&:date).last
@@ -76,6 +85,8 @@ class Patient
     end
     height
   end
+
+  
 
   def conditions
     return @conditions if @got_conditions

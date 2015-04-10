@@ -2,11 +2,19 @@
   <h1>Patients</h1>
   <table id="patients" class="display">
     <thead>
-      <tr><th>Patient Name</th><th>Patient ID</th></tr>
+      <tr>
+        <th>Patient Name</th>
+        <th>Patient ID</th>
+        <th>Patient Birthday</th>
+      </tr>
     </thead>
     <tbody>
     <% @directory.each do |a_patient| %>
-      <tr><td><%= link_to a_patient.full_name, patient_path(a_patient) %></td><td><%= a_patient.pid %></td></tr>
+      <tr>
+        <td><%= link_to a_patient.full_name, patient_path(a_patient) %></td>
+        <td><%= a_patient.pid %></td>
+        <td><%= a_patient.birthday %></td>
+      </tr>
     <% end %>
     </tbody>
   </table>
