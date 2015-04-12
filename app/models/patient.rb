@@ -1,7 +1,7 @@
 class Patient
   include ActiveModel::Model
 
-  attr_accessor :fname, :lname, :pid, :fhir, :observations
+  attr_accessor :fname, :lname, :pid, :fhir, :observations, :birthday
   attr_writer :conditions, :medications
   alias :to_param :pid
 
@@ -63,8 +63,8 @@ class Patient
   end
 
   def age
-    from = Time.now
-    
+    birthday_object = Time.parse(birthday)
+    age = Date.today.year - birthday_object.year
   end
 
   def height
