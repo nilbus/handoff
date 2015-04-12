@@ -12,7 +12,7 @@
         %>
         <tr>
           <td>
-            <% if share.last_view < handoff.lastModified() %>
+            <% if share.last_view == nil or share.last_view < handoff.lastModified() %>
               <span class="glyphicon glyphicon-flag" aria-hidden="true" title="New activity on this handoff!" style="color: red"></span>
             <% end %>
           </td>

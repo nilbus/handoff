@@ -9,6 +9,7 @@ end
 %>
 
 <div id="<%= prescription.id %>" class="annotatable">
+  <a class="anchor" name="<%= prescription.id %>-link"></a>
   <div class="well well-sm">
     <%= render 'handoffs/annotate_button' %>
 

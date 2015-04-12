@@ -1,4 +1,20 @@
-<% @datatableIds = [] %>
+<% @datatableIds = []
+
+resourceMap = Hash.new
+
+@patient_data.conditions.each do |condition|
+  resourceMap[condition.id] = condition.value
+end
+
+@patient_data.medications.each do |prescription|
+  resourceMap[prescription.id] = prescription.value
+end
+
+@patient_data.observations.each do |observation|
+  resourceMap[observation.id] = observation.code_display
+end
+
+%>
 <div class="row">
   <div class="col-md-2 col-md-offset-1 fixed">
     <div class="well">
@@ -36,6 +52,9 @@
          sharedWith += (share.user_id == current_user.id ? "You" : User.find(share.user_id).email) + ", "
        end
       sharedWith = sharedWith[0...-2]
+
+      uniquelyAnnotated = @handoff.annotations.map { |a| a.resource_id }
+      uniquelyAnnotated = uniquelyAnnotated.uniq
     %>
       
     <a class="anchor" name="handoff"></a>
@@ -56,6 +75,15 @@
           <dt>Shared With</dt>
           <dd><%= sharedWith %></dd>
         </dl>
+
+        <% if uniquelyAnnotated.size > 0 %>
+          <h5>Quick Links</h5>
+          <ul>
+            <% uniquelyAnnotated.each do |resource_id| %>
+              <li>Comments on <a href="#<%= resource_id %>-link"><%= resourceMap[resource_id] %></a></li>
+            <% end %>
+          <ul>
+        <% end %>
       </div>
     </div>
     <% end %>

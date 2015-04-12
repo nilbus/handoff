@@ -8,6 +8,7 @@ if observations.size > 1
 end
 %>
 <div id="<%= observation.id %>" class="annotatable">
+  <a class="anchor" name="<%= observation.id %>-link"></a>
   <div class="well well-sm">
     <%= render 'handoffs/annotate_button' %>
 
