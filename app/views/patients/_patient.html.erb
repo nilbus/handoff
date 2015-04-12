@@ -39,7 +39,7 @@
       <div class="panel-body">
         <table>
           <tr><td><strong>Name: </strong></td><td><%= @handoff.name %></td></tr>
-          <tr><td><strong>Description: </strong></td><td><%= @handoff.description %></td></tr>
+          <tr><td><strong>Reason: </strong></td><td><%= @handoff.description %></td></tr>
           <tr><td><strong>Created By: </strong></td><td><%= User.find(@handoff.creator_id).email %></td></tr>
           <tr><td><strong>Date Created: <br></strong></td><td><%= @handoff.created_at.strftime("%B %d, %Y") %></td></tr>
         </table>
@@ -120,7 +120,7 @@
                 <td><%= f.text_field :name, :value => "#{@patient_data.full_name} - #{DateTime.now.to_date}", :size => 40 %></td>
               </tr>
               <tr>
-                <td><%= f.label :description %></td>
+                <td><strong>Reason for Handoff</strong></td>
                 <td><%= f.text_area  :description, :size => "40x5" %></td>
               </tr>
             </table>

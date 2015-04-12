@@ -4,6 +4,7 @@ class SharesController < ApplicationController
 
   def create
     @share = Share.new(share_params)
+    @share.last_view = DateTime.now()
     @share.save()
     @handoff = Handoff.find(share_params['handoff_id'])
     redirect_to @handoff
