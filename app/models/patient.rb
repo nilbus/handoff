@@ -68,6 +68,10 @@ class Patient
     Time.at(from + random_number * (to.to_f - from.to_f)).to_s.gsub(/\d{2}:\d{2}:\d{2} -\d{4}/, '').strip
   end
 
+  def age
+
+  end
+
   def height
     if observations.map(&:code_display).include?("Body Height")
       height_observation = [observations.select{|observation| observation.code_display == "Body Height"}].flatten.sort_by(&:date).last
@@ -86,8 +90,6 @@ class Patient
     height
   end
 
-  
-
   def conditions
     return @conditions if @got_conditions
     API.update_patient_conditions(self)
@@ -97,20 +99,16 @@ class Patient
 
   def groupedAndSortedConditions
     allConditons = conditions()
-
     grouped = Hash.new
-
     allConditons.each do |condition|
       if !grouped.has_key?(condition.value)
           grouped[condition.value] = []
       end
       grouped[condition.value] << condition
     end
-
     grouped.each do |key, conditions|
         grouped[key] = conditions.sort! { |a,b| b.onset_date <=> a.onset_date }
     end
-
     grouped
   end
 
@@ -123,20 +121,16 @@ class Patient
 
   def groupedAndSortedMedications
     allMedications = medications()
-
     grouped = Hash.new
-
     allMedications.each do |medication|
       if !grouped.has_key?(medication.value)
           grouped[medication.value] = []
       end
       grouped[medication.value] << medication
     end
-
     grouped.each do |key, medications|
         grouped[key] = medications.sort! { |a,b| b.written_date <=> a.written_date }
     end
-
     grouped
   end
 
