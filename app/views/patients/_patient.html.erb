@@ -10,9 +10,9 @@
        </div>
       <ul class="nav nav-pills nav-stacked patient-nav">
         <% if @handoff %>
-        <li><a href="#handoff">Handoff</a></li>
+        <li><a href="#handoff">Handoff Summary</a></li>
         <% end %>
-        <li><a href="#overview">Overview</a></li>
+        <li><a href="#overview">Patient Summary</a></li>
         <li><a href="#conditions">Conditions</a></li>
         <li><a href="#prescriptions">Prescriptions</a></li>
         <li><a href="#observations">Observations</a></li>
@@ -31,22 +31,31 @@
   </div>
   <div class="col-md-6 col-md-offset-3">
     <% if @handoff %>
+    <%
+      sharedWith = ""
+       @handoff.shares.each do |share|
+         sharedWith += (share.user_id == current_user.id ? "You" : User.find(share.user_id).email) + ", "
+       end
+      sharedWith = sharedWith[0...-2]
+    %>
+      
     <a class="anchor" name="handoff"></a>
     <div class="panel panel-default">
       <div class="panel-heading">
-        <%= @patient_data.fname %>'s Handoffs
+        Handoff Summary
       </div>
       <div class="panel-body">
         <table>
-          <tr><td><strong>Name: </strong></td><td><%= @handoff.name %></td></tr>
-          <tr><td><strong>Reason: </strong></td><td><%= @handoff.description %></td></tr>
-          <tr><td><strong>Created By: </strong></td><td><%= User.find(@handoff.creator_id).email %></td></tr>
-          <tr><td><strong>Date Created: <br></strong></td><td><%= @handoff.created_at.strftime("%B %d, %Y") %></td></tr>
+          <tr><td><strong>Name:</strong></td><td><%= @handoff.name %></td></tr>
+          <tr><td><strong>Reason:</strong></td><td><%= @handoff.description %></td></tr>
+          <tr><td><strong>Initiated By:</strong></td><td><%= User.find(@handoff.creator_id).email %> on <%= @handoff.created_at.strftime("%B %d, %Y") %></td></tr>
+          <tr><td><strong>Last Modified:</strong></td><td><%= @handoff.lastModified().strftime("%B %d, %Y at %I:%M %p") %></td></tr>
+          <tr><td><strong>Shared With:</strong></td><td><%= sharedWith %></td></tr>
         </table>
+
       </div>
     </div>
     <% end %>
-
     <a class="anchor" name="overview"></a>
     <div class="panel panel-default">
       <div class="panel-heading">

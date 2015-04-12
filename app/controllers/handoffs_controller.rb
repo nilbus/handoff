@@ -8,8 +8,8 @@ class HandoffsController < ApplicationController
     @annotations_by_resource = @handoff.annotations.sequential.group_by(&:resource_id)
     @patient_data = Patient.new(@handoff.patient_id)
     raise ActiveRecord::RecordNotFound, 'You do not have access to this handoff' unless @handoff.shares.map(&:user_id).include?(current_user.id)
-    share = Share.find_by(handoff_id: @handoff.id, user_id: current_user.id)
-    share.update(last_view: DateTime.now())
+    @share = Share.find_by(handoff_id: @handoff.id, user_id: current_user.id)
+    @share.update(last_view: DateTime.now())
   end
 
   def create
