@@ -17,7 +17,6 @@
         <li><a href="#prescriptions">Prescriptions</a></li>
         <li><a href="#observations">Observations</a></li>
       </ul>
-      <hr>
       <% if !@handoff %>
         <button type="button" class="btn btn-primary btn-default btn-block" data-toggle="modal" data-target="#handoffModal">
           Create Handoff!
@@ -45,14 +44,18 @@
         Handoff Summary
       </div>
       <div class="panel-body">
-        <table>
-          <tr><td><strong>Name:</strong></td><td><%= @handoff.name %></td></tr>
-          <tr><td><strong>Reason:</strong></td><td><%= @handoff.description %></td></tr>
-          <tr><td><strong>Initiated By:</strong></td><td><%= User.find(@handoff.creator_id).email %> on <%= @handoff.created_at.strftime("%B %d, %Y") %></td></tr>
-          <tr><td><strong>Last Modified:</strong></td><td><%= @handoff.lastModified().strftime("%B %d, %Y at %I:%M %p") %></td></tr>
-          <tr><td><strong>Shared With:</strong></td><td><%= sharedWith %></td></tr>
-        </table>
-
+        <dl class="dl-horizontal" style="margin-left: 0;">
+          <dt>Name</dt>
+          <dd><%= @handoff.name %></dd>
+          <dt>Reason</dt>
+          <dd><%= @handoff.description %></dd>
+          <dt>Initiated By</dt>
+          <dd><%= User.find(@handoff.creator_id).email %> on <%= @handoff.created_at.strftime("%B %d, %Y")  %></dd>
+          <dt>Last Modified</dt>
+          <dd><%= @handoff.lastModified().strftime("%B %d, %Y at %I:%M %p") %></dd>
+          <dt>Shared With</dt>
+          <dd><%= sharedWith %></dd>
+        </dl>
       </div>
     </div>
     <% end %>
@@ -62,10 +65,16 @@
         Patient Summary
       </div>
       <div class="panel-body">
-        <b> Name: </b><%= "#{@patient_data.full_name}" %> <br>
-        <b> Weight: </b><%= "#{@patient_data.weight}"%> <br>
-        <b> Height: </b> <%= @patient_data.height %> <br>
-        <b> Birthday: </b> <%= @patient_data.birthday %> (<%= @patient_data.age %>)<br>
+        <dl class="dl-horizontal">
+          <dt>Name</dt>
+          <dd><%= @patient_data.full_name %></dd>
+          <dt>Birthday</dt>
+          <dd><%= @patient_data.birthday %></dd>
+          <dt>Height</dt>
+          <dd><%= @patient_data.height %></dd>
+          <dt>Weight</dt>
+          <dd><%= @patient_data.weight %></dd>
+        </dl>
       </div>
     </div>
 

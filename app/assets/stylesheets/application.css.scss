@@ -19,6 +19,10 @@
   opacity:0.5 !important;
 }
 
-td {
-  padding: 0 0 0 10px
+.dl-horizontal dt {
+  width: 110px;
+}
+
+.dl-horizontal dd {
+  margin-left: 130px;
 }
