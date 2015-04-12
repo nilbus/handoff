@@ -11,7 +11,6 @@ class Patient
     end
   end
 
-
   def initialize(pid, fname = nil, lname = nil)
     @pid = pid
     @fname = fname
@@ -33,20 +32,16 @@ class Patient
 
   def groupedAndSortedObservations
     allObservations = observations()
-
     grouped = Hash.new
-
     allObservations.each do |observation|
       if !grouped.has_key?(observation.code_display)
           grouped[observation.code_display] = []
       end
       grouped[observation.code_display] << observation
     end
-
     grouped.each do |key, observations|
         grouped[key] = observations.sort! { |a,b| b.date <=> a.date }
     end
-
     grouped
   end
 
@@ -64,8 +59,12 @@ class Patient
     from = 0.0
     to = Time.now
     random_number = Random.new(@pid.gsub('.', '').gsub('-', '').to_i).rand
-    # binding.pry
     Time.at(from + random_number * (to.to_f - from.to_f)).to_s.gsub(/\d{2}:\d{2}:\d{2} -\d{4}/, '').strip
+  end
+
+  def age
+    from = Time.now
+    
   end
 
   def height
@@ -86,8 +85,6 @@ class Patient
     height
   end
 
-  
-
   def conditions
     return @conditions if @got_conditions
     API.update_patient_conditions(self)
@@ -97,20 +94,16 @@ class Patient
 
   def groupedAndSortedConditions
     allConditons = conditions()
-
     grouped = Hash.new
-
     allConditons.each do |condition|
       if !grouped.has_key?(condition.value)
           grouped[condition.value] = []
       end
       grouped[condition.value] << condition
     end
-
     grouped.each do |key, conditions|
         grouped[key] = conditions.sort! { |a,b| b.onset_date <=> a.onset_date }
     end
-
     grouped
   end
 
@@ -123,20 +116,16 @@ class Patient
 
   def groupedAndSortedMedications
     allMedications = medications()
-
     grouped = Hash.new
-
     allMedications.each do |medication|
       if !grouped.has_key?(medication.value)
           grouped[medication.value] = []
       end
       grouped[medication.value] << medication
     end
-
     grouped.each do |key, medications|
         grouped[key] = medications.sort! { |a,b| b.written_date <=> a.written_date }
     end
-
     grouped
   end
 
