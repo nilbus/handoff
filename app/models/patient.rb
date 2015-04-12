@@ -11,7 +11,6 @@ class Patient
     end
   end
 
-
   def initialize(pid, fname = nil, lname = nil)
     @pid = pid
     @fname = fname
@@ -33,20 +32,16 @@ class Patient
 
   def groupedAndSortedObservations
     allObservations = observations()
-
     grouped = Hash.new
-
     allObservations.each do |observation|
       if !grouped.has_key?(observation.code_display)
           grouped[observation.code_display] = []
       end
       grouped[observation.code_display] << observation
     end
-
     grouped.each do |key, observations|
         grouped[key] = observations.sort! { |a,b| b.date <=> a.date }
     end
-
     grouped
   end
 
@@ -64,12 +59,12 @@ class Patient
     from = 0.0
     to = Time.now
     random_number = Random.new(@pid.gsub('.', '').gsub('-', '').to_i).rand
-    # binding.pry
     Time.at(from + random_number * (to.to_f - from.to_f)).to_s.gsub(/\d{2}:\d{2}:\d{2} -\d{4}/, '').strip
   end
 
   def age
-
+    from = Time.now
+    
   end
 
   def height
