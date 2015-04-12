@@ -65,7 +65,6 @@ class Patient
   def age
     birthday_object = Time.parse(birthday)
     age = Date.today.year - birthday_object.year
-    age -= 1 if Date.today < birthday_object + age.years
   end
 
   def height

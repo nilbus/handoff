@@ -13,7 +13,7 @@
       <tr>
         <td><%= link_to a_patient.full_name, patient_path(a_patient) %></td>
         <td><%= a_patient.pid %></td>
-        <td><%= a_patient.birthday %></td>
+        <td><%= a_patient.birthday %> (<%= a_patient.age %> years old)</td>
       </tr>
     <% end %>
     </tbody>
