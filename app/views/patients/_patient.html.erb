@@ -63,16 +63,16 @@ end
         Handoff Summary
       </div>
       <div class="panel-body">
-        <dl class="dl-horizontal" style="margin-left: 0;">
-          <dt>Name</dt>
+        <dl class="dl-horizontal">
+          <dt>Name:</dt>
           <dd><%= @handoff.name %></dd>
-          <dt>Reason</dt>
+          <dt>Reason:</dt>
           <dd><%= @handoff.description %></dd>
-          <dt>Initiated By</dt>
+          <dt>Initiated By:</dt>
           <dd><%= User.find(@handoff.creator_id).email %> on <%= @handoff.created_at.strftime("%B %d, %Y")  %></dd>
-          <dt>Last Modified</dt>
+          <dt>Last Modified:</dt>
           <dd><%= @handoff.lastModified().strftime("%B %d, %Y at %I:%M %p") %></dd>
-          <dt>Shared With</dt>
+          <dt>Shared With:</dt>
           <dd><%= sharedWith %></dd>
         </dl>
 
@@ -94,13 +94,13 @@ end
       </div>
       <div class="panel-body">
         <dl class="dl-horizontal">
-          <dt>Name</dt>
+          <dt>Name:</dt>
           <dd><%= @patient_data.full_name %></dd>
-          <dt>Birthday</dt>
+          <dt>Birthday:</dt>
           <dd><%= @patient_data.birthday %> (<%= @patient_data.age %> years old)</dd>
-          <dt>Height</dt>
+          <dt>Height:</dt>
           <dd><%= @patient_data.height %></dd>
-          <dt>Weight</dt>
+          <dt>Weight:</dt>
           <dd><%= @patient_data.weight %></dd>
         </dl>
       </div>
