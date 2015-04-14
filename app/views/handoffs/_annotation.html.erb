@@ -1,7 +1,7 @@
 <div class="panel-heading author">
   <%= annotation.author_name %>
   <% unless annotation.template? %>
-    (<span class="relative-time"><%= annotation.created_at.to_formatted_s(:rfc822) %></span>)
+    (<span class="relative-time"><%= annotation.created_at.to_formatted_s(:iso8601) %></span>)
   <% end %>
 </div>
 <div class="panel-body annotation">
