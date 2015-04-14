@@ -19,12 +19,16 @@ class AnnotationRenderer
       $(event.target).closest('.annotations-for-id').addClass('raised')
     $('.annotations').on 'blur', '.annotations-for-id :input', (event) =>
       $(event.target).closest('.annotations-for-id').removeClass('raised')
-    @initializeCancelMethods()
+    @initializeCancelTriggers()
 
-  initializeCancelMethods: ->
+  initializeCancelTriggers: ->
     $(document).on 'keydown', (event) =>
       if event.keyCode == (escapeKeyCode = 27)
-        $('.reply').each (_, replyBox) =>
+        replyBoxes = if $(event.target).is '.reply textarea'
+          $(event.target).closest('.reply')
+        else
+          $('.reply')
+        replyBoxes.each (_, replyBox) =>
           @resetReplyForm $(replyBox)
 
   showAnnotateFormFor: (id) ->
