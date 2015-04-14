@@ -19,6 +19,20 @@ class AnnotationRenderer
       $(event.target).closest('.annotations-for-id').addClass('raised')
     $('.annotations').on 'blur', '.annotations-for-id :input', (event) =>
       $(event.target).closest('.annotations-for-id').removeClass('raised')
+    @initializeCancelTriggers()
+
+  initializeCancelTriggers: ->
+    $(document).on 'keydown', (event) =>
+      if event.keyCode == (escapeKeyCode = 27)
+        replyBoxes = if $(event.target).is '.reply textarea'
+          $(event.target).closest('.reply')
+        else
+          $('.reply')
+        replyBoxes.each (_, replyBox) =>
+          @resetReplyForm $(replyBox)
+    $('.annotations').on 'click', '.close', (event) =>
+      replyBox = $(event.target).closest('.reply')
+      @resetReplyForm $(replyBox)
 
   showAnnotateFormFor: (id) ->
     @createAnnotationsContainer(id) unless @annotationsContainerFor(id).length
@@ -69,6 +83,7 @@ class AnnotationRenderer
   resetReplyForm: (replyBox) ->
     replyBox.find('textarea').val('')
     replyBox.find('.btn-reply').removeClass('btn-success').addClass('btn-default')
+    replyBox.find('.close').hide()
     replyBox.find('.reply-content').hide()
 
   submitForm: (form, onComplete) ->
@@ -84,6 +99,7 @@ class AnnotationRenderer
   showReplyContentFor: (id) ->
     annotationsContainer = @annotationsContainerFor(id)
     annotationsContainer.find('.btn-reply').removeClass('btn-default').addClass('btn-success')
+    annotationsContainer.find('.close').show()
     replyContent = annotationsContainer.find('.reply-content')
     replyContent.show()
     replyContent.find('textarea').focus()
