@@ -20,6 +20,7 @@ class AnnotationRenderer
     $('.annotations').on 'blur', '.annotations-for-id :input', (event) =>
       $(event.target).closest('.annotations-for-id').removeClass('raised')
     @initializeCancelTriggers()
+    @dimOtherAnnotationsOnHover()
 
   initializeCancelTriggers: ->
     $(document).on 'keydown', (event) =>
@@ -33,6 +34,21 @@ class AnnotationRenderer
     $('.annotations').on 'click', '.close', (event) =>
       replyBox = $(event.target).closest('.reply')
       @resetReplyForm $(replyBox)
+
+  dimOtherAnnotationsOnHover: ->
+    outHandler = ->
+      $('.annotations-for-id').removeClass 'backgrounded'
+    inHandler = (event) ->
+      hovered = $(this)
+      focused = $('.reply textarea:focus').closest('.annotations-for-id')
+      primary = if focused.length then focused else hovered
+      others = $('.annotations-for-id').not(primary)
+      others.addClass 'backgrounded'
+      primary.removeClass 'backgrounded'
+    $('.annotations-for-id').hover inHandler, outHandler
+    $('.annotations-for-id').click (event) ->
+      outHandler()
+      $.proxy(inHandler, this)(event)
 
   showAnnotateFormFor: (id) ->
     @createAnnotationsContainer(id) unless @annotationsContainerFor(id).length
