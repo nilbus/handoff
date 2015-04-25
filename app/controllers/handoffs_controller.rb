@@ -16,7 +16,9 @@ class HandoffsController < ApplicationController
     @handoff = Handoff.new(handoff_params)
     @handoff.shares.build(:user_id => @handoff.creator_id, :last_view => DateTime.now)
     @handoff.save()
-    redirect_to @handoff
+    query = {bookmark: params[:bookmark]}
+    query.compact!
+    redirect_to handoff_path(@handoff, query)
   end
 
   def destroy

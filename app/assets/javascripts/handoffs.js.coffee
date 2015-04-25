@@ -3,6 +3,7 @@ class AnnotationRenderer
     @relativeizeTimes()
     @showAnnotations()
     @initializeEvents()
+    @setupScrollReturn()
     @positionAnnotations()
 
   showAnnotations: ->
@@ -133,6 +134,27 @@ class AnnotationRenderer
 
   annotationsTemplate: ->
     $('.annotations-for-id[data-id=template]')
+
+  setupScrollReturn: ->
+    @jumpDownPageToBookmark()
+    @sendJumpPositionWithCreateHandoffForm()
+
+  jumpDownPageToBookmark: ->
+    offsetQuery = '?bookmark='
+    urlQuery = window.location.search
+    if urlQuery.startsWith offsetQuery
+      bookmarkOffset = parseInt(urlQuery.slice(offsetQuery.length))
+      handoffSummaryHeight = $('.handoff-summary').height()
+      handoffSummaryMargin = 22
+      yPosition = bookmarkOffset + handoffSummaryHeight + handoffSummaryMargin
+      $(window).scrollTop(yPosition)
+
+  sendJumpPositionWithCreateHandoffForm: ->
+    $('.new_handoff').submit ->
+      previousAction = $(this).attr('action')
+      $('#bookmark-input').remove()
+      yPosition = $(window).scrollTop()
+      $(this).append "<input id='bookmark-input' type='hidden' name='bookmark' value='#{yPosition}'>"
 
   positionAnnotations: ->
     annotationGroups = $('.annotations-for-id')
