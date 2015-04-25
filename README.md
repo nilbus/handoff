@@ -89,6 +89,10 @@ Deploying as a WAR file
 
             chmod +x bin/catalina.sh
 
+    * Remove any old version of the app
+
+            rm -rf webapps/handoff
+
     * Start the Tomcat app server
 
             bin/catalina.sh start
