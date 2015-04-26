@@ -20,13 +20,8 @@ class AnnotationRenderer
       $(event.target).closest('.annotations-for-id').addClass('raised')
     $('.annotations').on 'blur', '.annotations-for-id :input', (event) =>
       $(event.target).closest('.annotations-for-id').removeClass('raised')
-    $(document).on 'click', '.btn-create-handoff', (event) =>
-      @showCreateHandoffModal()
     @initializeCancelTriggers()
     @dimOtherAnnotationsOnHover()
-
-  showCreateHandoffModal: ->
-    $('#handoffModal').modal('toggle')
 
   initializeCancelTriggers: ->
     $(document).on 'keydown', (event) =>

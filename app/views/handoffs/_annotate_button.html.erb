@@ -1,4 +1,6 @@
-<% button_action_class = @handoff.present? ? 'btn-annotate' : 'btn-create-handoff' %>
-<button class="btn btn-default pull-right <%= button_action_class %>" title="Annotate this">
+<% if @handoff %>
+<button class="btn btn-default btn-annotate pull-right" title="Annotate this">
   <span class="glyphicon glyphicon-comment" aria-hidden="true"></span>
 </button>
+<% end %>
+
