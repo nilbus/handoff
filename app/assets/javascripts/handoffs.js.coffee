@@ -46,8 +46,9 @@ class AnnotationRenderer
       others = $('.annotations-for-id').not(primary)
       others.addClass 'backgrounded'
       primary.removeClass 'backgrounded'
-    $('.annotations-for-id').hover inHandler, outHandler
-    $('.annotations-for-id').click (event) ->
+    $('.annotations').on 'mouseenter', '.annotations-for-id', inHandler
+    $('.annotations').on 'mouseleave', '.annotations-for-id', outHandler
+    $('.annotations').on 'click', '.annotations-for-id', (event) ->
       outHandler()
       $.proxy(inHandler, this)(event)
 
