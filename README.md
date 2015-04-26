@@ -60,12 +60,12 @@ Running the application
 Deploying as a WAR file
 =======================
 
-1. (once) Install JRuby and bundler
+1. (once) Install JRuby ~> 1.7.19 and bundler
 
    First install a Java JDK. Then:
 
-        rvm install jruby
-        rvm use jruby
+        rvm install jruby-1.7.19
+        rvm use jruby-1.7.19
         gem install bundler
 
 1. Generate the war file handoff.war:
@@ -74,7 +74,7 @@ Deploying as a WAR file
 
     or
 
-        rvm use jruby                               # use JRuby and its gems for packaging
+        rvm use jruby-1.7.19                        # use JRuby and its gems for packaging
         bundle install --deployment                 # prepare gems for deployment
         RAILS_ENV=production rake assets:precompile # compile assets (js, css)
         bundle exec warble                          # generate the war file
