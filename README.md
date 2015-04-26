@@ -75,7 +75,6 @@ Deploying as a WAR file
     or
 
         rvm use jruby-1.7.19                        # use JRuby and its gems for packaging
-        bundle install --no-deployment              # install gems
         bundle install --deployment                 # prepare gems for deployment
         RAILS_ENV=production rake assets:precompile # compile assets (js, css)
         bundle exec warble                          # generate the war file
