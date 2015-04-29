@@ -182,6 +182,9 @@ GEM
       activesupport (>= 3.0)
       sprockets (>= 2.8, < 4.0)
     sqlite3 (1.3.10)
+    therubyrhino (2.0.4)
+      therubyrhino_jar (>= 1.7.3)
+    therubyrhino_jar (1.7.4)
     thor (0.19.1)
     thread_safe (0.3.4)
     thread_safe (0.3.4-java)
@@ -229,6 +232,7 @@ DEPENDENCIES
   sdoc (~> 0.4.0)
   spring
   sqlite3
+  therubyrhino
   turbolinks
   uglifier (>= 1.3.0)
   warbler
