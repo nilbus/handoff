@@ -33,7 +33,7 @@ class Patient
   def grouped_and_sorted_observations
     grouped = {}
     observations.each do |observation|
-      if !grouped.has_key?(observation.code_display)
+      unless grouped.has_key?(observation.code_display)
           grouped[observation.code_display] = []
       end
       grouped[observation.code_display] << observation
@@ -94,7 +94,7 @@ class Patient
   def grouped_and_sorted_conditions
     grouped = {}
     conditons.each do |condition|
-      if !grouped.has_key?(condition.value)
+      unless grouped.has_key?(condition.value)
           grouped[condition.value] = []
       end
       grouped[condition.value] << condition
@@ -115,7 +115,7 @@ class Patient
   def grouped_and_sorted_medications
     grouped = {}
     medications.each do |medication|
-      if !grouped.has_key?(medication.value)
+      unless grouped.has_key?(medication.value)
           grouped[medication.value] = []
       end
       grouped[medication.value] << medication

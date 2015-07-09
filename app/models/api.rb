@@ -68,7 +68,7 @@ class API
     while data_collection_done == false do
       results_next_tag = dig_with_specified_array_location(results_hash, 1, "link", "array", "rel")
       results_next_url = dig_with_specified_array_location(results_hash, 1, "link", "array", "href")
-      if not results_next_tag == "next"
+      unless results_next_tag == "next"
         results_next_tag = dig_with_specified_array_location(results_hash, 2, "link", "array", "rel")
         results_next_url = dig_with_specified_array_location(results_hash, 2, "link", "array", "href")
       end
@@ -112,7 +112,7 @@ class API
     while data_collection_done == false do
       results_next_tag = dig_with_specified_array_location(results_hash, 1, "link", "array", "rel")
       results_next_url = dig_with_specified_array_location(results_hash, 1, "link", "array", "href")
-      if not results_next_tag == "next"
+      unless results_next_tag == "next"
         results_next_tag = dig_with_specified_array_location(results_hash, 2, "link", "array", "rel")
         results_next_url = dig_with_specified_array_location(results_hash, 2, "link", "array", "href")
       end
@@ -162,7 +162,7 @@ class API
     while data_collection_done == false do
       results_next_tag = dig_with_specified_array_location(results_hash, 1, "link", "array", "rel")
       results_next_url = dig_with_specified_array_location(results_hash, 1, "link", "array", "href")
-      if not results_next_tag == "next"
+      unless results_next_tag == "next"
         results_next_tag = dig_with_specified_array_location(results_hash, 2, "link", "array", "rel")
         results_next_url = dig_with_specified_array_location(results_hash, 2, "link", "array", "href")
       end

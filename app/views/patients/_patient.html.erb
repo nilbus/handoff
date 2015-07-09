@@ -33,7 +33,7 @@ end
         <li><a href="#prescriptions">Prescriptions</a></li>
         <li><a href="#observations">Observations</a></li>
       </ul>
-      <% if !@handoff %>
+      <% if @handoff.nil? %>
         <button type="button" class="btn btn-success btn-block" data-toggle="modal" data-target="#handoffModal">
           Start a Handoff
         </button>
@@ -149,7 +149,7 @@ end
   </div>
 </div>
 
-<% if !@handoff %>
+<% if @handoff.nil? %>
   <div class="modal fade" id="handoffModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
