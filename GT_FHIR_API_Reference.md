@@ -44,7 +44,7 @@ https://taurus.i3l.gatech.edu:8443/HealthPort/fhir/
 
 Due to the GT FHIR API server's lack of reliability we may also use the HAPI FHIR server:
 
-HAPI: 
+HAPI:
 
 There are four types of FHIR resources available to us for our project:
 

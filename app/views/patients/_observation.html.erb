@@ -1,10 +1,10 @@
-<% 
-observation = observations[0] 
+<%
+observation = observations[0]
 
 historyId = SecureRandom.uuid
 
 if observations.size > 1
-  @datatableIds.push(historyId)  
+  @datatableIds.push(historyId)
 end
 %>
 <div id="<%= observation.id %>" class="annotatable">

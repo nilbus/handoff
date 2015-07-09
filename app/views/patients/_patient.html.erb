@@ -223,7 +223,7 @@ end
 	      information, including patient data, that you view
 	      and/or share.
 	    </p>
-            
+
             <p>
 	      If you receive a handoff granting you access to patient data for
 	      which you are not authorized, you:
@@ -239,12 +239,12 @@ end
 		  information they have shared with you.</li>
 	      </ul>
 	    </p>
-	    
+	
 	    <p>
 	      For additional information on HIPAA requirements and
 	      restrictions, see <a href="http://www.hhs.gov/ocr/privacy/hipaa/administrative/combined/hipaa-simplification-201303.pdf">45 CFR Parts 160, 162, and 164</a>.<br>
 	    </p>
-	    
+	
            <%= f.hidden_field :handoff_id, :value => @handoff.id %>
            <p>
              <%= f.select :user_id, select_options %>

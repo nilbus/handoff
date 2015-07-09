@@ -72,13 +72,13 @@ class Patient
       height_observation = [observations.select{|observation| observation.code_display == "Body Height"}].flatten.sort_by(&:date).last
       height_number = height_observation.value
         if height_observation.units == "in"
-          height_feet = (height_number / 12).floor 
+          height_feet = (height_number / 12).floor
           height_inches = height_number % 12
         else
           height_feet = (height_number / 30).floor
           height_inches = (height_number / 30 / 2.54).round
         end
-      height = "#{height_feet} ft. #{height_inches} in." 
+      height = "#{height_feet} ft. #{height_inches} in."
     else
       height = "N/A"
     end
