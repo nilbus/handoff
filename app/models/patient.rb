@@ -47,7 +47,7 @@ class Patient
   def weight
     if observations.map(&:code_display).include?("Body Weight")
       body_weight_observation = [observations.select{|observation| observation.code_display == "Body Weight"}].flatten.sort_by(&:date).last
-      weight = body_weight_observation.value.to_s + " " +body_weight_observation.units
+      weight = "#{body_weight_observation.value} #{body_weight_observation.units}"
     else
       weight = "N/A"
     end
