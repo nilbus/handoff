@@ -1,11 +1,26 @@
-Doctor-Dashboard
-================
+Handoff
+=======
 
-Add notes, pictures, or have a conversation in the context of an Electronic
-Health Record.
+Handoff is a platform for next generation care coordination. Using Handoff,
+providers can collaboratively annotate electronic medical records to ensure
+efficient and continuous care. Handoff is meant to free care providers from the
+phone calls, texts, and other forms of informal communication that are
+currently used to facilitate care coordination.
+
+This is application a prototype and not meant for production use.
+
+Configuration
+=============
+
+Handoff pulls patient records from your existing system via FHIR API.
+Configure the API endpoint and tweak its interaction in `app/models/api.rb`.
+This is required for demoing, because the default endpoint is firewall-protected.
+
+Development
+===========
 
 Initial Setup
-=============
+-------------
 
 1. Install rvm, following the instructions on the front page of http://rvm.io.
    If gpg is not a command on your system, ignore that step.
@@ -33,7 +48,7 @@ Initial Setup
 
         bundle install
 
-1. Drop old instances of the database 
+1. Drop old instances of the database
 
         bin/rake db:drop
 
@@ -47,7 +62,7 @@ Initial Setup
 
 
 Running the application
-=======================
+-----------------------
 
 1. `cd` into the project directory
 
@@ -58,7 +73,7 @@ Running the application
 1. Visit http://localhost:3000
 
 Deploying as a WAR file
-=======================
+-----------------------
 
 1. (once) Install JRuby ~> 1.7.19 and bundler
 
