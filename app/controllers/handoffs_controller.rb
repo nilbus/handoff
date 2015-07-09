@@ -9,13 +9,13 @@ class HandoffsController < ApplicationController
     @patient_data = Patient.new(@handoff.patient_id)
     raise ActiveRecord::RecordNotFound, 'You do not have access to this handoff' unless @handoff.shares.map(&:user_id).include?(current_user.id)
     @share = Share.find_by(handoff_id: @handoff.id, user_id: current_user.id)
-    @share.update(last_view: DateTime.now())
+    @share.update(last_view: DateTime.now)
   end
 
   def create
     @handoff = Handoff.new(handoff_params)
     @handoff.shares.build(:user_id => @handoff.creator_id, :last_view => DateTime.now)
-    @handoff.save()
+    @handoff.save
     query = {bookmark: params[:bookmark]}
     query.compact!
     redirect_to handoff_path(@handoff, query)

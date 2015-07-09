@@ -4,7 +4,7 @@ class SharesController < ApplicationController
 
   def create
     @share = Share.new(share_params)
-    @share.save()
+    @share.save
     @handoff = Handoff.find(share_params['handoff_id'])
     redirect_to @handoff
   end

@@ -17,7 +17,7 @@ class API
     Patient.new(this_pid, this_name_first, this_name_last)
   end
 
-  def self.all_patients()
+  def self.all_patients
     results = HTTParty.get("#{BASE_URL_CONST}#{RPATH_PAT_CONST}#{RPATH_PARAMS_CONST}#{RPATH_COUNT_100_CONST}")
     results_hash = JSON.parse(results.body)
     patients = results_hash["entry"].map do |patient_data|

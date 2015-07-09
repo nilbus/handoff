@@ -6,7 +6,7 @@ class Handoff < ActiveRecord::Base
   def last_modified
     latest = updated_at
 
-    annotations = annotations()
+    annotations = annotations
 
     if annotations.size < 1
       return latest

@@ -5,7 +5,7 @@ class AnnotationsController < ApplicationController
     @annotation.save!
 
     share = Share.find_by(handoff_id: @annotation.handoff.id, user_id: current_user.id)
-    share.update(last_view: DateTime.now())
+    share.update(last_view: DateTime.now)
 
     if request.xhr?
       render partial: 'handoffs/annotation', object: @annotation
