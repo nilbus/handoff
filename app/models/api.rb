@@ -80,7 +80,7 @@ class API
         more_observations = results_hash["entry"].map do |observation_data|
           get_observation_object_from_data(observation_data)
         end
-        observation_array = observation_array + more_observations
+        observation_array += more_observations
       else
         data_collection_done = true
       end
@@ -124,7 +124,7 @@ class API
         more_conditions = results_hash["entry"].map do |condition_data|
           get_condition_object_from_data(condition_data)
         end
-        condition_array = condition_array + more_conditions
+        condition_array += more_conditions
       else
         data_collection_done = true
       end
@@ -174,7 +174,7 @@ class API
         more_medications = results_hash["entry"].map do |medication_data|
           get_medication_object_from_data(medication_data)
         end
-        medication_array = medication_array + more_medications
+        medication_array += more_medications
       else
         data_collection_done = true
       end
