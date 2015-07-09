@@ -8,7 +8,7 @@ class API
   RPATH_FOR_PATIENT_PREFIX_CONST = "&subject=Patient/"
   RPATH_COUNT_100_CONST = "&_count=100"
 
-### Patients
+  ### Patients
 
   def self.get_patient_object_from_data(patient_data)
     this_pid        = dig_with_specified_array_location(patient_data, 0, "identifier", "array", "value")
@@ -39,7 +39,7 @@ class API
     get_patient_object_from_data(results_hash)
   end
 
-### Observations
+  ### Observations
 
   def self.get_observation_object_from_data(observation_data)
     # id, value, units, comment, pub_date, status, reliability, code_system, code, display_div
@@ -88,7 +88,7 @@ class API
     patient.observations = observation_array
   end
 
-### Conditions
+  ### Conditions
 
   def self.get_condition_object_from_data(condition_data)
     #id, value, onset_date, status, code_system, code
@@ -132,7 +132,7 @@ class API
     patient.conditions = condition_array
   end
 
-### Medications
+  ### Medications
 
   def self.get_medication_object_from_data(medication_data)
     #id, value, status, prescriber, written_date, dosage_value, dosage_units, dosage_text, dispense_quantity, dispense_repeats, coding_system, code
@@ -182,7 +182,7 @@ class API
     patient.medications = medication_array
   end
 
-### Helper Methods
+  ### Helper Methods
 
   def self.dig_with_specified_array_location(hash, array_location, *path)
     path.inject(hash) do |location, key|

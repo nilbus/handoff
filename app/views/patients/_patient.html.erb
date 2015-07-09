@@ -26,7 +26,7 @@ end
        </div>
       <ul class="nav nav-pills nav-stacked patient-nav">
         <% if @handoff %>
-        <li><a href="#handoff">Handoff Summary</a></li>
+          <li><a href="#handoff">Handoff Summary</a></li>
         <% end %>
         <li><a href="#overview">Patient Summary</a></li>
         <li><a href="#conditions">Conditions</a></li>
@@ -46,46 +46,46 @@ end
   </div>
   <div class="col-md-6 col-md-offset-3">
     <% if @handoff %>
-    <%
-      shared_with = ""
-       @handoff.shares.each do |share|
-         shared_with += (share.user_id == current_user.id ? "You" : User.find(share.user_id).email) + ", "
-       end
-      shared_with = shared_with[0...-2]
+      <%
+        shared_with = ""
+         @handoff.shares.each do |share|
+           shared_with += (share.user_id == current_user.id ? "You" : User.find(share.user_id).email) + ", "
+         end
+        shared_with = shared_with[0...-2]
 
-      uniquely_annotated = @handoff.annotations.map { |a| a.resource_id }
-      uniquely_annotated = uniquely_annotated.uniq
-    %>
+        uniquely_annotated = @handoff.annotations.map { |a| a.resource_id }
+        uniquely_annotated = uniquely_annotated.uniq
+      %>
 
-    <a class="anchor" name="handoff"></a>
-    <div class="panel panel-default handoff-summary">
-      <div class="panel-heading">
-        Handoff Summary
+      <a class="anchor" name="handoff"></a>
+      <div class="panel panel-default handoff-summary">
+        <div class="panel-heading">
+          Handoff Summary
+        </div>
+        <div class="panel-body">
+          <dl class="dl-horizontal">
+            <dt>Name:</dt>
+            <dd><%= @handoff.name %></dd>
+            <dt>Reason:</dt>
+            <dd><%= @handoff.description %></dd>
+            <dt>Initiated By:</dt>
+            <dd><%= User.find(@handoff.creator_id).email %> on <%= @handoff.created_at.strftime("%B %d, %Y")  %></dd>
+            <dt>Last Modified:</dt>
+            <dd><%= @handoff.last_modified().strftime("%B %d, %Y at %I:%M %p") %></dd>
+            <dt>Shared With:</dt>
+            <dd><%= shared_with %></dd>
+          </dl>
+
+          <% if uniquely_annotated.size > 0 %>
+            <h5>Quick Links</h5>
+            <ul>
+              <% uniquely_annotated.each do |resource_id| %>
+                <li>Comments on <a href="#<%= resource_id %>-link"><%= resource_map[resource_id] %></a></li>
+              <% end %>
+            <ul>
+          <% end %>
+        </div>
       </div>
-      <div class="panel-body">
-        <dl class="dl-horizontal">
-          <dt>Name:</dt>
-          <dd><%= @handoff.name %></dd>
-          <dt>Reason:</dt>
-          <dd><%= @handoff.description %></dd>
-          <dt>Initiated By:</dt>
-          <dd><%= User.find(@handoff.creator_id).email %> on <%= @handoff.created_at.strftime("%B %d, %Y")  %></dd>
-          <dt>Last Modified:</dt>
-          <dd><%= @handoff.last_modified().strftime("%B %d, %Y at %I:%M %p") %></dd>
-          <dt>Shared With:</dt>
-          <dd><%= shared_with %></dd>
-        </dl>
-
-        <% if uniquely_annotated.size > 0 %>
-          <h5>Quick Links</h5>
-          <ul>
-            <% uniquely_annotated.each do |resource_id| %>
-              <li>Comments on <a href="#<%= resource_id %>-link"><%= resource_map[resource_id] %></a></li>
-            <% end %>
-          <ul>
-        <% end %>
-      </div>
-    </div>
     <% end %>
     <a class="anchor" name="overview"></a>
     <div class="panel panel-default">

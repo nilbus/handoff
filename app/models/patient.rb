@@ -34,12 +34,12 @@ class Patient
     grouped = {}
     observations.each do |observation|
       unless grouped.has_key?(observation.code_display)
-          grouped[observation.code_display] = []
+        grouped[observation.code_display] = []
       end
       grouped[observation.code_display] << observation
     end
     grouped.each do |key, observations|
-        grouped[key] = observations.sort! { |a,b| b.date <=> a.date }
+      grouped[key] = observations.sort! { |a,b| b.date <=> a.date }
     end
     grouped
   end
@@ -95,12 +95,12 @@ class Patient
     grouped = {}
     conditons.each do |condition|
       unless grouped.has_key?(condition.value)
-          grouped[condition.value] = []
+        grouped[condition.value] = []
       end
       grouped[condition.value] << condition
     end
     grouped.each do |key, conditions|
-        grouped[key] = conditions.sort! { |a,b| b.onset_date <=> a.onset_date }
+      grouped[key] = conditions.sort! { |a,b| b.onset_date <=> a.onset_date }
     end
     grouped
   end
@@ -116,12 +116,12 @@ class Patient
     grouped = {}
     medications.each do |medication|
       unless grouped.has_key?(medication.value)
-          grouped[medication.value] = []
+        grouped[medication.value] = []
       end
       grouped[medication.value] << medication
     end
     grouped.each do |key, medications|
-        grouped[key] = medications.sort! { |a,b| b.written_date <=> a.written_date }
+      grouped[key] = medications.sort! { |a,b| b.written_date <=> a.written_date }
     end
     grouped
   end
