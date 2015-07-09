@@ -23,27 +23,6 @@ class Patient
     "#{@fname} #{@lname}"
   end
 
-  def observations
-    return @observations if @got_observations
-    API.update_patient_observations(self)
-    @got_observations = true
-    @observations
-  end
-
-  def grouped_and_sorted_observations
-    grouped = {}
-    observations.each do |observation|
-      unless grouped.has_key?(observation.code_display)
-        grouped[observation.code_display] = []
-      end
-      grouped[observation.code_display] << observation
-    end
-    grouped.each do |key, observations|
-      grouped[key] = observations.sort! { |a,b| b.date <=> a.date }
-    end
-    grouped
-  end
-
   def weight
     if observations.map(&:code_display).include?("Body Weight")
       body_weight_observation = [observations.select{|observation| observation.code_display == "Body Weight"}].flatten.sort_by(&:date).last
@@ -84,6 +63,13 @@ class Patient
     height
   end
 
+  def observations
+    return @observations if @got_observations
+    API.update_patient_observations(self)
+    @got_observations = true
+    @observations
+  end
+
   def conditions
     return @conditions if @got_conditions
     API.update_patient_conditions(self)
@@ -91,39 +77,11 @@ class Patient
     @conditions
   end
 
-  def grouped_and_sorted_conditions
-    grouped = {}
-    conditons.each do |condition|
-      unless grouped.has_key?(condition.value)
-        grouped[condition.value] = []
-      end
-      grouped[condition.value] << condition
-    end
-    grouped.each do |key, conditions|
-      grouped[key] = conditions.sort! { |a,b| b.onset_date <=> a.onset_date }
-    end
-    grouped
-  end
-
   def medications
     return @medications if @got_medications
     API.update_patient_medications(self)
     @got_medications = true
     @medications
-  end
-
-  def grouped_and_sorted_medications
-    grouped = {}
-    medications.each do |medication|
-      unless grouped.has_key?(medication.value)
-        grouped[medication.value] = []
-      end
-      grouped[medication.value] << medication
-    end
-    grouped.each do |key, medications|
-      grouped[key] = medications.sort! { |a,b| b.written_date <=> a.written_date }
-    end
-    grouped
   end
 
 end

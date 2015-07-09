@@ -112,7 +112,7 @@ end
         Conditions
       </div>
       <div class="panel-body">
-        <% @patient_data.grouped_and_sorted_conditions.each do |key, conditions| %>
+        <% PatientsHelper.grouped_and_sorted(@patient_data.conditions).each do |key, conditions| %>
           <%= render partial: "patients/condition", locals: {conditions: conditions} %>
         <% end %>
       </div>
@@ -124,7 +124,7 @@ end
         Prescriptions
       </div>
       <div class="panel-body">
-        <% @patient_data.grouped_and_sorted_medications.each do |key, medications| %>
+        <% PatientsHelper.grouped_and_sorted(@patient_data.medications).each do |key, medications| %>
           <%= render partial: "patients/prescription", locals: {prescriptions: medications} %>
         <% end %>
       </div>
@@ -136,9 +136,8 @@ end
         Observations
       </div>
       <div class="panel-body">
-        <% grouped_observations = @patient_data.grouped_and_sorted_observations
-           grouped_observations.keys.sort.each do |key| %>
-          <%= render partial: "patients/observation", locals: {observations: grouped_observations[key]} %>
+        <% PatientsHelper.grouped_and_sorted(@patient_data.observations).each do |key, observations| %>
+          <%= render partial: "patients/observation", locals: {observations: observations} %>
         <% end %>
       </div>
     </div>

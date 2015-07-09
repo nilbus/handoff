@@ -1,6 +1,9 @@
 class Medication
   attr_accessor :id, :value, :status, :prescriber, :written_date, :dosage_value, :dosage_units, :dosage_text, :dispense_quantity, :dispense_repeats, :coding_system, :code
 
+  alias_method :key, :value
+  alias_method :date, :written_date
+
   def initialize(id, value, status, prescriber, written_date, dosage_value, dosage_units, dosage_text, dispense_quantity, dispense_repeats, coding_system, code)
     @id = id
     @value = value

@@ -1,6 +1,8 @@
 class Observation
   attr_accessor :display, :id, :value, :units, :comment, :date, :status, :reliability, :code_system, :code, :code_display
 
+  alias_method :key, :code_display
+
   def initialize(display, id, value, units, comment, date, status, reliability, code_system, code, code_display)
     @display = display
     @id = id
