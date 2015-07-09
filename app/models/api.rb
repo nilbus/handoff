@@ -186,7 +186,6 @@ class API
 
   def self.dig_with_specified_array_location(hash, array_location, *path)
     path.inject(hash) do |location, key|
-      retVal = nil
       if location && location.kind_of?(Hash)
         location[key]
       elsif location && location.kind_of?(Array) && location.length > 0
