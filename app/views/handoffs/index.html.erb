@@ -12,14 +12,14 @@
         %>
         <tr>
           <td>
-            <% if share.last_view == nil or share.last_view < handoff.lastModified() %>
+            <% if share.last_view == nil or share.last_view < handoff.last_modified %>
               <span class="glyphicon glyphicon-flag" aria-hidden="true" title="New activity on this handoff!" style="color: red"></span>
             <% end %>
           </td>
           <td><%= link_to handoff.name, handoff %></td>
           <td><%= handoff.description %></td>
           <td><%= handoff.creator_id == current_user.id ? "You" : User.find(handoff.creator_id).email %></td>
-          <td><%= handoff.lastModified().strftime("%B %d, %Y at %I:%M%p") %></td>
+          <td><%= handoff.last_modified.strftime("%B %d, %Y at %I:%M%p") %></td>
         </tr>
       <% end %>
       </tbody>

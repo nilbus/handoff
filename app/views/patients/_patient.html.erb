@@ -1,17 +1,17 @@
-<% @datatableIds = []
+<% @datatable_ids = []
 
-resourceMap = Hash.new
+resource_map = {}
 
 @patient_data.conditions.each do |condition|
-  resourceMap[condition.id] = condition.value
+  resource_map[condition.id] = condition.value
 end
 
 @patient_data.medications.each do |prescription|
-  resourceMap[prescription.id] = prescription.value
+  resource_map[prescription.id] = prescription.value
 end
 
 @patient_data.observations.each do |observation|
-  resourceMap[observation.id] = observation.code_display
+  resource_map[observation.id] = observation.code_display
 end
 
 %>
@@ -47,14 +47,14 @@ end
   <div class="col-md-6 col-md-offset-3">
     <% if @handoff %>
     <%
-      sharedWith = ""
+      shared_with = ""
        @handoff.shares.each do |share|
-         sharedWith += (share.user_id == current_user.id ? "You" : User.find(share.user_id).email) + ", "
+         shared_with += (share.user_id == current_user.id ? "You" : User.find(share.user_id).email) + ", "
        end
-      sharedWith = sharedWith[0...-2]
+      shared_with = shared_with[0...-2]
 
-      uniquelyAnnotated = @handoff.annotations.map { |a| a.resource_id }
-      uniquelyAnnotated = uniquelyAnnotated.uniq
+      uniquely_annotated = @handoff.annotations.map { |a| a.resource_id }
+      uniquely_annotated = uniquely_annotated.uniq
     %>
 
     <a class="anchor" name="handoff"></a>
@@ -71,16 +71,16 @@ end
           <dt>Initiated By:</dt>
           <dd><%= User.find(@handoff.creator_id).email %> on <%= @handoff.created_at.strftime("%B %d, %Y")  %></dd>
           <dt>Last Modified:</dt>
-          <dd><%= @handoff.lastModified().strftime("%B %d, %Y at %I:%M %p") %></dd>
+          <dd><%= @handoff.last_modified().strftime("%B %d, %Y at %I:%M %p") %></dd>
           <dt>Shared With:</dt>
-          <dd><%= sharedWith %></dd>
+          <dd><%= shared_with %></dd>
         </dl>
 
-        <% if uniquelyAnnotated.size > 0 %>
+        <% if uniquely_annotated.size > 0 %>
           <h5>Quick Links</h5>
           <ul>
-            <% uniquelyAnnotated.each do |resource_id| %>
-              <li>Comments on <a href="#<%= resource_id %>-link"><%= resourceMap[resource_id] %></a></li>
+            <% uniquely_annotated.each do |resource_id| %>
+              <li>Comments on <a href="#<%= resource_id %>-link"><%= resource_map[resource_id] %></a></li>
             <% end %>
           <ul>
         <% end %>
@@ -112,7 +112,7 @@ end
         Conditions
       </div>
       <div class="panel-body">
-        <% @patient_data.groupedAndSortedConditions.each do |key, conditions| %>
+        <% @patient_data.grouped_and_sorted_conditions.each do |key, conditions| %>
           <%= render partial: "patients/condition", locals: {conditions: conditions} %>
         <% end %>
       </div>
@@ -124,7 +124,7 @@ end
         Prescriptions
       </div>
       <div class="panel-body">
-        <% @patient_data.groupedAndSortedMedications.each do |key, medications| %>
+        <% @patient_data.grouped_and_sorted_medications.each do |key, medications| %>
           <%= render partial: "patients/prescription", locals: {prescriptions: medications} %>
         <% end %>
       </div>
@@ -136,9 +136,9 @@ end
         Observations
       </div>
       <div class="panel-body">
-        <% groupedObservations = @patient_data.groupedAndSortedObservations
-           groupedObservations.keys.sort.each do |key| %>
-          <%= render partial: "patients/observation", locals: {observations: groupedObservations[key]} %>
+        <% grouped_observations = @patient_data.grouped_and_sorted_observations
+           grouped_observations.keys.sort.each do |key| %>
+          <%= render partial: "patients/observation", locals: {observations: grouped_observations[key]} %>
         <% end %>
       </div>
     </div>
@@ -153,8 +153,7 @@ end
   <div class="modal fade" id="handoffModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
-        <% @newHandoff = Handoff.new() %>
-        <%= form_for @newHandoff do |f| %>
+        <%= form_for Handoff.new do |f| %>
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title" id="handoffModalLabel">Create Handoff for <%= "#{@patient_data.full_name}"%></h4>
@@ -187,9 +186,9 @@ end
       <div class="modal-content">
         <%
           @share  = Share.new()
-          currentIds = @handoff.shares.map { |s| s.user_id }
-          possibleUsers = User.where("id not in (?)", currentIds)
-          selectOptions = possibleUsers.map { |u| [u.email, u.id] }
+          current_ids = @handoff.shares.map { |s| s.user_id }
+          possible_users = User.where("id not in (?)", current_ids)
+          select_options = possible_users.map { |u| [u.email, u.id] }
         %>
 
         <%= form_for @share do |f| %>
@@ -248,7 +247,7 @@ end
 	    
            <%= f.hidden_field :handoff_id, :value => @handoff.id %>
            <p>
-             <%= f.select :user_id, selectOptions %>
+             <%= f.select :user_id, select_options %>
            </p>
         </div>
           <div class="modal-footer">
@@ -263,7 +262,7 @@ end
 
 <% content_for :body_end do %>
   <script type="text/javascript">
-  <% @datatableIds.each do |id| %>
+  <% @datatable_ids.each do |id| %>
  $(document).ready(function() {
     $('<%= "##{id}" %>').dataTable({
       "bLengthChange": false,

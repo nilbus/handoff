@@ -30,10 +30,9 @@ class Patient
     @observations
   end
 
-  def groupedAndSortedObservations
-    allObservations = observations()
-    grouped = Hash.new
-    allObservations.each do |observation|
+  def grouped_and_sorted_observations
+    grouped = {}
+    observations.each do |observation|
       if !grouped.has_key?(observation.code_display)
           grouped[observation.code_display] = []
       end
@@ -93,10 +92,9 @@ class Patient
     @conditions
   end
 
-  def groupedAndSortedConditions
-    allConditons = conditions()
-    grouped = Hash.new
-    allConditons.each do |condition|
+  def grouped_and_sorted_conditions
+    grouped = {}
+    conditons.each do |condition|
       if !grouped.has_key?(condition.value)
           grouped[condition.value] = []
       end
@@ -115,10 +113,9 @@ class Patient
     @medications
   end
 
-  def groupedAndSortedMedications
-    allMedications = medications()
-    grouped = Hash.new
-    allMedications.each do |medication|
+  def grouped_and_sorted_medications
+    grouped = {}
+    medications.each do |medication|
       if !grouped.has_key?(medication.value)
           grouped[medication.value] = []
       end

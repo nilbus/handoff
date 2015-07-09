@@ -3,7 +3,7 @@ class Handoff < ActiveRecord::Base
   has_many :annotations
   belongs_to :creator, class_name: 'User'
 
-  def lastModified
+  def last_modified
     latest = updated_at
 
     annotations = annotations()
