@@ -7,7 +7,7 @@ class Patient
 
   class << self
     def all
-      API.all_patients
+      api.all_patients
     end
   end
 
@@ -18,7 +18,7 @@ class Patient
   end
 
   def full_name
-    API.update_patient(self) unless @got_full_name || @fname.present? && @lname.present?
+    api.update_patient(self) unless @got_full_name || @fname.present? && @lname.present?
     @got_full_name = true
     "#{@fname} #{@lname}"
   end
@@ -64,24 +64,32 @@ class Patient
   end
 
   def observations
-    return @observations if @got_observations
-    API.update_patient_observations(self)
-    @got_observations = true
-    @observations
+    cache_assessments(:observations) do
+      api.update_patient_assessments(:observations, self)
+    end
   end
 
   def conditions
-    return @conditions if @got_conditions
-    API.update_patient_conditions(self)
-    @got_conditions = true
-    @conditions
+    cache_assessments(:conditions) do
+      api.update_patient_assessments(:conditions, self)
+    end
   end
 
   def medications
-    return @medications if @got_medications
-    API.update_patient_medications(self)
-    @got_medications = true
-    @medications
+    cache_assessments(:medications) do
+      api.update_patient_assessments(:medications, self)
+    end
   end
 
+  private
+
+  def api
+    @api ||= API.new
+  end
+
+  def cache_assessments(type)
+    @cached_assessments ||= {}
+    return @cached_assessments[type] if @cached_assessments.key?(type)
+    @cached_assessments[type] = yield
+  end
 end
