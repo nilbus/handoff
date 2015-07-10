@@ -48,22 +48,18 @@ class API
         extract_object_from_data(assessment)
       end
 
-      data_collection_done = false
-      while data_collection_done == false do
+      loop do
         results_next_tag = API.dig_with_specified_array_location(results, 1, "link", "array", "rel")
         results_next_url = API.dig_with_specified_array_location(results, 1, "link", "array", "href")
         unless results_next_tag == "next"
           results_next_tag = API.dig_with_specified_array_location(results, 2, "link", "array", "rel")
           results_next_url = API.dig_with_specified_array_location(results, 2, "link", "array", "href")
         end
-        if results_next_tag == "next"
-          response = HTTParty.get(results_next_url)
-          results = JSON.parse(response.body)
-          assessments += results["entry"].map do |assessment|
-            extract_object_from_data(assessment)
-          end
-        else
-          data_collection_done = true
+        break unless results_next_tag == "next"
+        response = HTTParty.get(results_next_url)
+        results = JSON.parse(response.body)
+        assessments += results["entry"].map do |assessment|
+          extract_object_from_data(assessment)
         end
       end
       assessments
