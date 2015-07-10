@@ -64,29 +64,32 @@ class Patient
   end
 
   def observations
-    return @observations if @got_observations
-    api.update_patient_observations(self)
-    @got_observations = true
-    @observations
+    cache_assessments(:observations) do
+      api.update_patient_observations(self)
+    end
   end
 
   def conditions
-    return @conditions if @got_conditions
-    api.update_patient_conditions(self)
-    @got_conditions = true
-    @conditions
+    cache_assessments(:conditions) do
+      api.update_patient_conditions(self)
+    end
   end
 
   def medications
-    return @medications if @got_medications
-    api.update_patient_medications(self)
-    @got_medications = true
-    @medications
+    cache_assessments(:medications) do
+      api.update_patient_medications(self)
+    end
   end
 
   private
 
   def api
     @api ||= API.new
+  end
+
+  def cache_assessments(type)
+    @cached_assessments ||= {}
+    return @cached_assessments[type] if @cached_assessments.key?(type)
+    @cached_assessments[type] = yield
   end
 end
