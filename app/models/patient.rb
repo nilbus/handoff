@@ -29,10 +29,7 @@ class Patient
   end
 
   def birthday
-    from = 0.0
-    to = Time.now
-    random_number = Random.new(@pid.gsub('.', '').gsub('-', '').to_i).rand
-    (Time.at(from + random_number * (to.to_f - from.to_f))-25.years).to_s.gsub(/\d{2}:\d{2}:\d{2} -\d{4}/, '').strip
+    FakeBirthdate.new(patient).to_s
   end
 
   def age
