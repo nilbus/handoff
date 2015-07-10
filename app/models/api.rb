@@ -51,27 +51,35 @@ class API
       assessments
     end
 
-    private
-
     def fetch_assessments_page(page_url)
       response = HTTParty.get(page_url)
       results = JSON.parse(response.body)
       assessments = results["entry"].map do |assessment|
         extract_object_from_data(assessment)
       end
-      next_page = extract_next_page_url(results)
+      next_page = NextPage.new(results).url
       assessment, next_page
     end
+  end
 
-    def extract_next_page_url(results)
-      next_link_label, next_link_url = extract_next_page_url_from_line(1, results)
-      next_link_label, next_link_url = extract_next_page_url_from_line(2, results) unless next_link_label == 'next'
+  class NextPage
+    attr_accessor :results
+
+    def initialize(results)
+      @results = results
+    end
+
+    def url
+      next_link_label, next_link_url = extract_url_from_line(1)
+      next_link_label, next_link_url = extract_url_from_line(2) unless next_link_label == 'next'
       next_link_url if next_link_label == 'next'
     end
 
-    def extract_next_page_url_from_line(line_index, results)
+    private
+
+    def extract_url_from_line(line_index)
       next_link_label = API.dig_with_specified_array_location(results, line_index, "link", "array", "rel")
-      next_link_url = API.dig_with_specified_array_location(results, line_index, "link", "array", "href")
+      next_link_url   = API.dig_with_specified_array_location(results, line_index, "link", "array", "href")
       next_link_label, next_link_url
     end
   end
