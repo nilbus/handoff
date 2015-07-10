@@ -65,19 +65,19 @@ class Patient
 
   def observations
     cache_assessments(:observations) do
-      api.update_patient_observations(self)
+      api.update_patient_assessments(:observations, self)
     end
   end
 
   def conditions
     cache_assessments(:conditions) do
-      api.update_patient_conditions(self)
+      api.update_patient_assessments(:conditions, self)
     end
   end
 
   def medications
     cache_assessments(:medications) do
-      api.update_patient_medications(self)
+      api.update_patient_assessments(:medications, self)
     end
   end
 
