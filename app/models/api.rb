@@ -10,14 +10,14 @@ class API
 
   ### Patients
 
-  def self.get_patient_object_from_data(patient_data)
+  def get_patient_object_from_data(patient_data)
     this_pid        = dig_with_specified_array_location(patient_data, 0, "identifier", "array", "value")
     this_name_first = dig_with_specified_array_location(patient_data, 0, "name", "array", "given", "array")
     this_name_last  = dig_with_specified_array_location(patient_data, 0, "name", "array", "family", "array")
     Patient.new(this_pid, this_name_first, this_name_last)
   end
 
-  def self.all_patients
+  def all_patients
     results = HTTParty.get("#{BASE_URL_CONST}#{RPATH_PAT_CONST}#{RPATH_PARAMS_CONST}#{RPATH_COUNT_100_CONST}")
     results_hash = JSON.parse(results.body)
     patients = results_hash["entry"].map do |patient_data|
@@ -25,7 +25,7 @@ class API
     end
   end
 
-  def self.update_patient(patient)
+  def update_patient(patient)
     results = HTTParty.get("#{BASE_URL_CONST}#{RPATH_PAT_CONST}#{patient.pid}#{RPATH_PARAMS_CONST}")
     results_hash = JSON.parse(results.body)
     patient.fname = results_hash["name"][0]["given"].first
@@ -33,7 +33,7 @@ class API
     patient
   end
 
-  def self.get_patient_from_pid(pid)
+  def get_patient_from_pid(pid)
     results = HTTParty.get("#{BASE_URL_CONST}#{RPATH_PAT_CONST}#{pid}#{RPATH_PARAMS_CONST}")
     results_hash = JSON.parse(results.body)
     get_patient_object_from_data(results_hash)
@@ -41,7 +41,7 @@ class API
 
   ### Observations
 
-  def self.get_observation_object_from_data(observation_data)
+  def get_observation_object_from_data(observation_data)
     # id, value, units, comment, pub_date, status, reliability, code_system, code, display_div
     this_id          = dig_with_specified_array_location(observation_data, 0, "id")
     this_value       = dig_with_specified_array_location(observation_data, 0, "content", "valueQuantity", "value")
@@ -57,7 +57,7 @@ class API
     Observation.new(this_display, this_id, this_value, this_units, this_comment, this_date, this_status, this_reliability, this_code_system, this_code, this_code_text)
   end
 
-  def self.update_patient_observations(patient)
+  def update_patient_observations(patient)
     results = HTTParty.get("#{BASE_URL_CONST}#{RPATH_OBS_CONST}#{RPATH_PARAMS_CONST}#{RPATH_FOR_PATIENT_PREFIX_CONST}#{patient.pid}#{RPATH_COUNT_100_CONST}")
     results_hash = JSON.parse(results.body)
     observation_array = results_hash["entry"].map do |observation_data|
@@ -90,7 +90,7 @@ class API
 
   ### Conditions
 
-  def self.get_condition_object_from_data(condition_data)
+  def get_condition_object_from_data(condition_data)
     #id, value, onset_date, status, code_system, code
     this_id          = dig_with_specified_array_location(condition_data, 0, "id")
     this_value       = dig_with_specified_array_location(condition_data, 0, "content", "code", "coding", "array", "display")
@@ -101,7 +101,7 @@ class API
     Condition.new(this_id, this_value, this_onset_date, this_status, this_code_system, this_code)
   end
 
-  def self.update_patient_conditions(patient)
+  def update_patient_conditions(patient)
     results = HTTParty.get("#{BASE_URL_CONST}#{RPATH_CON_CONST}#{RPATH_PARAMS_CONST}#{RPATH_FOR_PATIENT_PREFIX_CONST}#{patient.pid}#{RPATH_COUNT_100_CONST}")
     results_hash = JSON.parse(results.body)
     condition_array = results_hash["entry"].map do |condition_data|
@@ -134,7 +134,7 @@ class API
 
   ### Medications
 
-  def self.get_medication_object_from_data(medication_data)
+  def get_medication_object_from_data(medication_data)
     #id, value, status, prescriber, written_date, dosage_value, dosage_units, dosage_text, dispense_quantity, dispense_repeats, coding_system, code
     this_id                = dig_with_specified_array_location(medication_data, 0, "id")
     this_value             = dig_with_specified_array_location(medication_data, 0, "content", "medication", "display")
@@ -151,7 +151,7 @@ class API
     Medication.new(this_id, this_value, this_status, this_prescriber, this_written_date, this_dosage_value, this_dosage_units, this_dosage_text, this_dispense_quantity, this_dispense_repeats, this_coding_system, this_code)
   end
 
-  def self.update_patient_medications(patient)
+  def update_patient_medications(patient)
     results = HTTParty.get("#{BASE_URL_CONST}#{RPATH_MED_CONST}#{RPATH_PARAMS_CONST}#{RPATH_FOR_PATIENT_PREFIX_CONST}#{patient.pid}#{RPATH_COUNT_100_CONST}")
     results_hash = JSON.parse(results.body)
     medication_array = results_hash["entry"].map do |medication_data|
@@ -184,7 +184,7 @@ class API
 
   ### Helper Methods
 
-  def self.dig_with_specified_array_location(hash, array_location, *path)
+  def dig_with_specified_array_location(hash, array_location, *path)
     path.inject(hash) do |location, key|
       if location && location.kind_of?(Hash)
         location[key]
