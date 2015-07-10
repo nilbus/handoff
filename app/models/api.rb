@@ -19,7 +19,7 @@ class API
   private
 
   def type_class(type)
-    self.class.const_get(type.to_s.classify)
+    self.class.const_get(type.to_s.singularize.classify)
   end
 
   class Assessment
@@ -90,7 +90,7 @@ class API
       code        = data.get(0, "content", "name", "coding", "array", "code")
       code_text   = data.get(0, "content", "name", "coding", "array", "display")
       display     = data.get(0, "content", "text", "div")
-      Observation.new(display, id, value, units, comment, date, status, reliability, code_system, code, code_text)
+      ::Observation.new(display, id, value, units, comment, date, status, reliability, code_system, code, code_text)
     end
 
     def url
@@ -110,7 +110,7 @@ class API
       status      = data.get(0, "content", "status")
       code_system = data.get(0, "content", "code", "coding", "array", "system")
       code        = data.get(0, "content", "code", "coding", "array", "code")
-      Condition.new(id, value, onset_date, status, code_system, code)
+      ::Condition.new(id, value, onset_date, status, code_system, code)
     end
 
     def url(patient_pidd)
@@ -136,7 +136,7 @@ class API
       dispense_repeats  = data.get(0, "content", "dispense", "numberOfRepeatsAllowed")
       coding_system     = data.get(0, "content", "contained", "array", "code", "coding", "array", "system")
       code              = data.get(0, "content", "contained", "array", "code", "coding", "array", "code")
-      Medication.new(id, value, status, prescriber, written_date, dosage_value, dosage_units, dosage_text, dispense_quantity, dispense_repeats, coding_system, code)
+      ::Medication.new(id, value, status, prescriber, written_date, dosage_value, dosage_units, dosage_text, dispense_quantity, dispense_repeats, coding_system, code)
     end
 
     def url(patient_pidd)
@@ -176,7 +176,7 @@ class API
       pid        = data.get(0, "identifier", "array", "value")
       name_first = data.get(0, "name", "array", "given", "array")
       name_last  = data.get(0, "name", "array", "family", "array")
-      Patient.new(pid, name_first, name_last)
+      ::Patient.new(pid, name_first, name_last)
     end
   end
 
