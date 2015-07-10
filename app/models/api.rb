@@ -4,18 +4,6 @@ class API
   RPATH_FOR_PATIENT_PREFIX_CONST = "&subject=Patient/"
   RPATH_COUNT_100_CONST = "&_count=100"
 
-  def self.dig_with_specified_array_location(hash, array_location, *path)
-    path.inject(hash) do |location, key|
-      if location && location.kind_of?(Hash)
-        location[key]
-      elsif location && location.kind_of?(Array) && location.length > 0
-        location[array_location]
-      else
-        nil
-      end
-    end
-  end
-
   def all_patients
     Patient.new.all
   end
@@ -78,8 +66,9 @@ class API
     private
 
     def extract_url_from_line(line_index)
-      next_link_label = API.dig_with_specified_array_location(results, line_index, "link", "array", "rel")
-      next_link_url   = API.dig_with_specified_array_location(results, line_index, "link", "array", "href")
+      data = ResponseData.new(results)
+      next_link_label = data.get(line_index, "link", "array", "rel")
+      next_link_url   = data.get(line_index, "link", "array", "href")
       next_link_label, next_link_url
     end
   end
@@ -89,17 +78,18 @@ class API
 
     def extract_object_from_data(observation_data)
       # id, value, units, comment, pub_date, status, reliability, code_system, code, display_div
-      this_id          = API.dig_with_specified_array_location(observation_data, 0, "id")
-      this_value       = API.dig_with_specified_array_location(observation_data, 0, "content", "valueQuantity", "value")
-      this_units       = API.dig_with_specified_array_location(observation_data, 0, "content", "valueQuantity", "units")
-      this_comment     = API.dig_with_specified_array_location(observation_data, 0, "content", "comments")
-      this_date        = API.dig_with_specified_array_location(observation_data, 0, "con tent", "appliesDateTime")
-      this_status      = API.dig_with_specified_array_location(observation_data, 0, "content", "status")
-      this_reliability = API.dig_with_specified_array_location(observation_data, 0, "content", "reliability")
-      this_code_system = API.dig_with_specified_array_location(observation_data, 0, "content", "name", "coding", "array", "system")
-      this_code        = API.dig_with_specified_array_location(observation_data, 0, "content", "name", "coding", "array", "code")
-      this_code_text   = API.dig_with_specified_array_location(observation_data, 0, "content", "name", "coding", "array", "display")
-      this_display     = API.dig_with_specified_array_location(observation_data, 0, "content", "text", "div")
+      data = ResponseData.new(observation_data)
+      this_id          = data.get(0, "id")
+      this_value       = data.get(0, "content", "valueQuantity", "value")
+      this_units       = data.get(0, "content", "valueQuantity", "units")
+      this_comment     = data.get(0, "content", "comments")
+      this_date        = data.get(0, "con tent", "appliesDateTime")
+      this_status      = data.get(0, "content", "status")
+      this_reliability = data.get(0, "content", "reliability")
+      this_code_system = data.get(0, "content", "name", "coding", "array", "system")
+      this_code        = data.get(0, "content", "name", "coding", "array", "code")
+      this_code_text   = data.get(0, "content", "name", "coding", "array", "display")
+      this_display     = data.get(0, "content", "text", "div")
       Observation.new(this_display, this_id, this_value, this_units, this_comment, this_date, this_status, this_reliability, this_code_system, this_code, this_code_text)
     end
 
@@ -113,12 +103,13 @@ class API
 
     def extract_object_from_data(condition_data)
       #id, value, onset_date, status, code_system, code
-      this_id          = API.dig_with_specified_array_location(condition_data, 0, "id")
-      this_value       = API.dig_with_specified_array_location(condition_data, 0, "content", "code", "coding", "array", "display")
-      this_onset_date  = API.dig_with_specified_array_location(condition_data, 0, "content", "onsetDate")
-      this_status      = API.dig_with_specified_array_location(condition_data, 0, "content", "status")
-      this_code_system = API.dig_with_specified_array_location(condition_data, 0, "content", "code", "coding", "array", "system")
-      this_code        = API.dig_with_specified_array_location(condition_data, 0, "content", "code", "coding", "array", "code")
+      data = ResponseData.new(condition_data)
+      this_id          = data.get(0, "id")
+      this_value       = data.get(0, "content", "code", "coding", "array", "display")
+      this_onset_date  = data.get(0, "content", "onsetDate")
+      this_status      = data.get(0, "content", "status")
+      this_code_system = data.get(0, "content", "code", "coding", "array", "system")
+      this_code        = data.get(0, "content", "code", "coding", "array", "code")
       Condition.new(this_id, this_value, this_onset_date, this_status, this_code_system, this_code)
     end
 
@@ -132,18 +123,19 @@ class API
 
     def extract_object_from_data(medication_data)
       #id, value, status, prescriber, written_date, dosage_value, dosage_units, dosage_text, dispense_quantity, dispense_repeats, coding_system, code
-      this_id                = API.dig_with_specified_array_location(medication_data, 0, "id")
-      this_value             = API.dig_with_specified_array_location(medication_data, 0, "content", "medication", "display")
-      this_status            = API.dig_with_specified_array_location(medication_data, 0, "content", "status")
-      this_prescriber        = API.dig_with_specified_array_location(medication_data, 0, "content", "prescriber", "display")
-      this_written_date      = API.dig_with_specified_array_location(medication_data, 0, "content", "dateWritten")
-      this_dosage_value      = API.dig_with_specified_array_location(medication_data, 0, "content", "dosageInstruction", "array", "doseQuantity", "value")
-      this_dosage_units      = API.dig_with_specified_array_location(medication_data, 0, "content", "dosageInstruction", "array", "doseQuantity", "units")
-      this_dosage_text       = API.dig_with_specified_array_location(medication_data, 0, "content", "dosageInstruction", "array", "text")
-      this_dispense_quantity = API.dig_with_specified_array_location(medication_data, 0, "content", "dispense", "quantity", "value")
-      this_dispense_repeats  = API.dig_with_specified_array_location(medication_data, 0, "content", "dispense", "numberOfRepeatsAllowed")
-      this_coding_system     = API.dig_with_specified_array_location(medication_data, 0, "content", "contained", "array", "code", "coding", "array", "system")
-      this_code              = API.dig_with_specified_array_location(medication_data, 0, "content", "contained", "array", "code", "coding", "array", "code")
+      data = ResponseData.new(medication_data)
+      this_id                = data.get(0, "id")
+      this_value             = data.get(0, "content", "medication", "display")
+      this_status            = data.get(0, "content", "status")
+      this_prescriber        = data.get(0, "content", "prescriber", "display")
+      this_written_date      = data.get(0, "content", "dateWritten")
+      this_dosage_value      = data.get(0, "content", "dosageInstruction", "array", "doseQuantity", "value")
+      this_dosage_units      = data.get(0, "content", "dosageInstruction", "array", "doseQuantity", "units")
+      this_dosage_text       = data.get(0, "content", "dosageInstruction", "array", "text")
+      this_dispense_quantity = data.get(0, "content", "dispense", "quantity", "value")
+      this_dispense_repeats  = data.get(0, "content", "dispense", "numberOfRepeatsAllowed")
+      this_coding_system     = data.get(0, "content", "contained", "array", "code", "coding", "array", "system")
+      this_code              = data.get(0, "content", "contained", "array", "code", "coding", "array", "code")
       Medication.new(this_id, this_value, this_status, this_prescriber, this_written_date, this_dosage_value, this_dosage_units, this_dosage_text, this_dispense_quantity, this_dispense_repeats, this_coding_system, this_code)
     end
 
@@ -180,10 +172,31 @@ class API
     private
 
     def extract_object_from_data(patient_data)
-      this_pid        = API.dig_with_specified_array_location(patient_data, 0, "identifier", "array", "value")
-      this_name_first = API.dig_with_specified_array_location(patient_data, 0, "name", "array", "given", "array")
-      this_name_last  = API.dig_with_specified_array_location(patient_data, 0, "name", "array", "family", "array")
+      data = ResponseData.new(patient_data)
+      this_pid        = data.get(0, "identifier", "array", "value")
+      this_name_first = data.get(0, "name", "array", "given", "array")
+      this_name_last  = data.get(0, "name", "array", "family", "array")
       Patient.new(this_pid, this_name_first, this_name_last)
+    end
+  end
+
+  class ResponseData
+    attr_accessor :assessment
+
+    def initialize(assessment)
+      @assessment = assessment
+    end
+
+    def get(array_location, *path)
+      path.reduce(assessment) do |location, key|
+        if location && location.is_a?(Hash)
+          location[key]
+        elsif location && location.kind_of?(Array) && location.length > 0
+          location[array_location]
+        else
+          nil
+        end
+      end
     end
   end
 end
