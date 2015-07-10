@@ -42,27 +42,37 @@ class API
     end
 
     def fetch_assessments
-      response = HTTParty.get(url)
+      assessments = []
+      next_page_url = url
+      while next_page_url.present?
+        additional_assessments, next_page_url = fetch_assessments_page(next_page_url)
+        assessments += additional_assessments
+      end
+      assessments
+    end
+
+    private
+
+    def fetch_assessments_page(page_url)
+      response = HTTParty.get(page_url)
       results = JSON.parse(response.body)
       assessments = results["entry"].map do |assessment|
         extract_object_from_data(assessment)
       end
+      next_page = extract_next_page_url(results)
+      assessment, next_page
+    end
 
-      loop do
-        results_next_tag = API.dig_with_specified_array_location(results, 1, "link", "array", "rel")
-        results_next_url = API.dig_with_specified_array_location(results, 1, "link", "array", "href")
-        unless results_next_tag == "next"
-          results_next_tag = API.dig_with_specified_array_location(results, 2, "link", "array", "rel")
-          results_next_url = API.dig_with_specified_array_location(results, 2, "link", "array", "href")
-        end
-        break unless results_next_tag == "next"
-        response = HTTParty.get(results_next_url)
-        results = JSON.parse(response.body)
-        assessments += results["entry"].map do |assessment|
-          extract_object_from_data(assessment)
-        end
-      end
-      assessments
+    def extract_next_page_url(results)
+      next_link_label, next_link_url = extract_next_page_url_from_line(1, results)
+      next_link_label, next_link_url = extract_next_page_url_from_line(2, results) unless next_link_label == 'next'
+      next_link_url if next_link_label == 'next'
+    end
+
+    def extract_next_page_url_from_line(line_index, results)
+      next_link_label = API.dig_with_specified_array_location(results, line_index, "link", "array", "rel")
+      next_link_url = API.dig_with_specified_array_location(results, line_index, "link", "array", "href")
+      next_link_label, next_link_url
     end
   end
 
