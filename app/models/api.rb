@@ -29,41 +29,6 @@ class API
     type_class.new.send "update_patient_#{type}", patient
   end
 
-  class Patient
-    RPATH_CONST = "Patient/"
-
-    def all
-      results = HTTParty.get("#{BASE_URL_CONST}#{RPATH_PAT_CONST}#{RPATH_PARAMS_CONST}#{RPATH_COUNT_100_CONST}")
-      results_hash = JSON.parse(results.body)
-      patients = results_hash["entry"].map do |patient_data|
-        get_patient_object_from_data(patient_data["content"])
-      end
-    end
-
-    def update(patient)
-      results = HTTParty.get("#{BASE_URL_CONST}#{RPATH_PAT_CONST}#{patient.pid}#{RPATH_PARAMS_CONST}")
-      results_hash = JSON.parse(results.body)
-      patient.fname = results_hash["name"][0]["given"].first
-      patient.lname = results_hash["name"][0]["family"].first
-      patient
-    end
-
-    def find(pid)
-      results = HTTParty.get("#{BASE_URL_CONST}#{RPATH_PAT_CONST}#{pid}#{RPATH_PARAMS_CONST}")
-      results_hash = JSON.parse(results.body)
-      get_patient_object_from_data(results_hash)
-    end
-
-    private
-
-    def get_patient_object_from_data(patient_data)
-      this_pid        = API.dig_with_specified_array_location(patient_data, 0, "identifier", "array", "value")
-      this_name_first = API.dig_with_specified_array_location(patient_data, 0, "name", "array", "given", "array")
-      this_name_last  = API.dig_with_specified_array_location(patient_data, 0, "name", "array", "family", "array")
-      Patient.new(this_pid, this_name_first, this_name_last)
-    end
-  end
-
   class Observation
     RPATH_CONST = "Observation/"
 
@@ -210,6 +175,41 @@ class API
         end
       end
       patient.medications = medication_array
+    end
+  end
+
+  class Patient
+    RPATH_CONST = "Patient/"
+
+    def all
+      results = HTTParty.get("#{BASE_URL_CONST}#{RPATH_PAT_CONST}#{RPATH_PARAMS_CONST}#{RPATH_COUNT_100_CONST}")
+      results_hash = JSON.parse(results.body)
+      patients = results_hash["entry"].map do |patient_data|
+        get_patient_object_from_data(patient_data["content"])
+      end
+    end
+
+    def update(patient)
+      results = HTTParty.get("#{BASE_URL_CONST}#{RPATH_PAT_CONST}#{patient.pid}#{RPATH_PARAMS_CONST}")
+      results_hash = JSON.parse(results.body)
+      patient.fname = results_hash["name"][0]["given"].first
+      patient.lname = results_hash["name"][0]["family"].first
+      patient
+    end
+
+    def find(pid)
+      results = HTTParty.get("#{BASE_URL_CONST}#{RPATH_PAT_CONST}#{pid}#{RPATH_PARAMS_CONST}")
+      results_hash = JSON.parse(results.body)
+      get_patient_object_from_data(results_hash)
+    end
+
+    private
+
+    def get_patient_object_from_data(patient_data)
+      this_pid        = API.dig_with_specified_array_location(patient_data, 0, "identifier", "array", "value")
+      this_name_first = API.dig_with_specified_array_location(patient_data, 0, "name", "array", "given", "array")
+      this_name_last  = API.dig_with_specified_array_location(patient_data, 0, "name", "array", "family", "array")
+      Patient.new(this_pid, this_name_first, this_name_last)
     end
   end
 end
