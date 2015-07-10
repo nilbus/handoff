@@ -1,6 +1,8 @@
 Handoff
 =======
 
+[![Code Climate](https://codeclimate.com/github/nilbus/handoff/badges/gpa.svg)](https://codeclimate.com/github/nilbus/handoff)
+
 Handoff is a platform for next generation care coordination. Using Handoff,
 providers can collaboratively annotate electronic medical records to ensure
 efficient and continuous care. Handoff is meant to free care providers from the
