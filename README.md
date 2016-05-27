@@ -87,6 +87,7 @@ Deploying as a WAR file
 
 1. Generate the war file handoff.war:
 
+        rvm use jruby-1.7.19
         bin/build-war
 
     or
